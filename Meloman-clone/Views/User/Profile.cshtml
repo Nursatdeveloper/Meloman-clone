@@ -1,0 +1,756 @@
+﻿
+@{
+
+    var cookie = Context.Request.Cookies.FirstOrDefault(e => e.Key == "MelomanAdminCookie");
+
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href="~/css/order-form.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+<div class="user-profile-wrapper">
+    <div class="profile-side-menu">
+
+        @if (cookie.Key == "MelomanAdminCookie")
+        {
+            <a href="/Books/Create">
+                <div class="side-menu-item">
+                    Добавить книгу
+                </div>
+            </a>
+            <a href="/Books/Create">
+                <div class="side-menu-item">
+                    Редактировать книгу
+                </div>
+            </a>
+            <a href="/Books/AddAuthor">
+                <div class="side-menu-item">
+                    Добавить автора книги
+                </div>
+            </a>
+            <a href="/Books/AddBookDescription">
+                <div class="side-menu-item">
+                    Добавить описание книги
+                </div>
+            </a>
+            <a id="get-all-reviews">
+                <div class="side-menu-item">
+                    Посмотреть все отзывы
+                </div>
+            </a>
+            <a id="get-all-books">
+                <div class="side-menu-item">
+                    Посмотреть все книги
+                </div>
+            </a>
+            <a id="get-all-orders">
+                <div class="side-menu-item">
+                    Посмотреть все заказы
+                </div>
+            </a>
+        }
+        else
+        {
+            <a id="get-my-purchases" class="side-menu-item-link">
+                <div class="side-menu-item">
+                    Мои покупки
+                </div>
+            </a>
+            <a id="get-my-orders">
+                <div class="side-menu-item">
+                    Мои заказы
+                </div>
+            </a>
+            <a id="get-my-chosen-products" href="">
+                <div class="side-menu-item">
+                    Избранное
+                </div>
+            </a>
+            <a id="get-my-basket-items">
+                <div class="side-menu-item">
+                    Моя корзина
+                </div>
+            </a>
+        }
+
+
+
+    </div>
+    <div class="profile-main-menu">
+        <div class="profile-main-menu-header">
+            @if (cookie.Key == "MelomanAdminCookie")
+            {
+                <span>Профиль администратора</span>
+            }
+            else
+            {
+                <span>Профиль пользователя</span>
+            }
+
+        </div>
+
+        <a href="/User/Logout" id="logout-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+            </svg>
+            <span>Выйти</span>
+        </a>
+        <div class="profile-main-menu-body">
+            <button id="show-order-form-btn" onclick="showOrderForm()">Оформить заказ</button>
+            <div class="order-form-wrapper">
+                <div class="order-form-header">
+                    <h3>Оформить заказ</h3>
+                </div>
+                <div class="order-form-body">
+                    <div class="order-form-col">
+                        <div class="order-from-row">
+                            <span class="row-title">Получатель</span>
+                            <div class="receiver-information">
+                                <div class="receiver-info-item">
+                                    <div class="receiver-info-label">
+                                        <label>ТЕЛЕФОННЫЙ НОМЕР</label>
+                                    </div>
+                                    <div class="receiver-info-required">
+                                        <label>ОБЯЗАТЕЛЬНО</label>
+                                    </div>
+                                    <div class="receiver-info-input">
+                                        <input type='text' id="receiver-tel" />
+                                    </div>
+                                </div>
+                                <div class="receiver-info-item">
+                                    <div class="receiver-info-label">
+                                        <label>ИМЯ</label>
+                                    </div>
+                                    <div class="receiver-info-required">
+                                        <label>ОБЯЗАТЕЛЬНО</label>
+                                    </div>
+                                    <div class="receiver-info-input">
+                                        <input type='text' id="receiver-name" />
+                                    </div>
+                                </div>
+                                <div class="receiver-info-item">
+                                    <div class="receiver-info-label">
+                                        <label>ЭЛЕКТРОННАЯ ПОЧТА</label>
+                                    </div>
+                                    <div class="receiver-info-required">
+                                        <label style="color: #4d4d4d;">НЕОБЯЗАТЕЛЬНО</label>
+                                    </div>
+                                    <div class="receiver-info-input">
+                                        <input type='text' id="receiver-email" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-from-row">
+                            <span class="row-title">Регион доставки</span>
+                            <select id="city-selection">
+                                <option>Выберите регион</option>
+                                <option value="Nursultan">Нур-Султан</option>
+                                <option value="Almaty">Алматы</option>
+                                <option value="Shymkent">Шымкент</option>
+                                <option value="Taraz">Тараз</option>
+                                <option value="Kyzylorda">Кызылорда</option>
+                                <option value="Turkestan">Туркестан</option>
+                                <option value="Semey">Семей</option>
+                                <option value="Oskemen">Оскемен</option>
+                                <option value="Taldykorgan">Талдыкорган</option>
+                            </select>
+
+                            <div id="delivery-method-container">
+                                <div class="delivery-method-banner" id="delivery-method-banner-1">
+                                    <input type="radio" name="delivery-method" id="deliver-to-shop" value="shop">
+                                    <div class="delivery-method-banner-text">
+                                        <span id="deliver-to-shop-span-1">Бесплатная доставка в магазин</span>
+                                        <br />
+                                        <span id="deliver-to-shop-span-2">Бесплатно доставим товар в удобный магазин</span>
+                                    </div>
+                                </div>
+                                <div class="delivery-method-banner" id="delivery-method-banner-2">
+                                    <input type="radio" name="delivery-method" id="deliver-to-home" value="home">
+                                    <div class="delivery-method-banner-text">
+                                        <span id="deliver-to-home-span-1">Курьером в руки</span>
+                                        <br />
+                                        <span id="deliver-to-home-span-2">Доставим по указанному адресу</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-from-row" id='home-address-form'>
+                            <span class="row-title">Ваш адрес</span>
+                            <div class="receiver-information">
+                                <div class="receiver-info-item">
+
+                                    <div class="receiver-info-input">
+                                        <input type='text' placeholder="УЛИЦА" id="delivery-street" />
+                                    </div>
+                                </div>
+                                <div class="receiver-info-item">
+                                    <div class="receiver-info-input">
+                                        <input type='text' placeholder="ДОМ" id="delivery-house" />
+                                    </div>
+                                </div>
+                                <div class="receiver-info-item">
+                                    <div class="receiver-info-input">
+                                        <input type='text' placeholder="КВАРТИРА / ОФИС" id="delivery-office" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-from-row" id='shop-address-form'>
+                            <span class="row-title">Адрес магазина</span>
+                            <div>
+                                <select id="shop-address-select">
+                                    <option>Выберите адрес магазина</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="order-from-row">
+                            <div class="want-express-banner">
+                                <input type='hidden' id="want-express-hidden-input" value="want" />
+                                <div class="want-express-icon-container">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                                    </svg>
+                                </div>
+                                <div class="want-express-text-container" style="margin-left:5px;">
+                                    <span id="want-express-span-1">Хочу экспресс</span><br />
+                                    <span id="want-express-span-2">Вернуть экспресс доставку</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-from-row">
+                            <span class="row-title">Комментарий к заказу</span>
+                            <div id="comments-textarea-wrapper">
+                                <textarea id="comments-textarea"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-form-col">
+                        <div class="order-from-row" style="margin-top:29px;">
+                            <span class="row-title">Оплата</span>
+                            <div id="payment-method-wrapper">
+                                <div id="pay-on-delivery">
+                                    <input type="radio" name="payment-method" id="pay-on-delivery-radio" />
+                                    <span class="payment-method-span">При получении</span>
+                                </div>
+                                <div id="pay-online">
+                                    <input type="radio" name="payment-method" id="pay-online-radio" />
+                                    <span class="payment-method-span">Онлайн банковской картой</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-from-row">
+                            <div id="payment-information-container">
+
+                            </div>
+                        </div>
+                        <div class="order-from-row">
+                            <div id='payment-summary-container'>
+                                <div class="payment-summary-row">
+                                    <div class="payment-summary-item">
+                                        <span>Товары</span>
+                                    </div>
+                                    <div class="payment-summary-item">
+                                        <span id="first-price" style="font-size:15px;"></span>
+                                        тг
+                                    </div>
+                                </div>
+                                <div class="payment-summary-row">
+                                    <div class="payment-summary-item">
+                                        <span>Скидка</span>
+                                    </div>
+                                    <div class="payment-summary-item color-green">
+                                        <span id="payment-summary-discount"></span>%
+                                    </div>
+                                </div>
+                                <div class="payment-summary-row">
+                                    <div class="payment-summary-item">
+                                        <span>Доставка</span>
+                                    </div>
+                                    <div class="payment-summary-item">
+                                        <span style="font-size:15px;">0</span>
+                                        тг
+                                    </div>
+                                </div>
+                                <div class="payment-summary-row" style="border-top:1px solid #ccc; margin-top:10px;padding-top:10px;">
+                                    <div class="payment-summary-item">
+                                        <span style="font-size:17px;">К оплате</span>
+                                    </div>
+                                    <div class="payment-summary-item">
+                                        <span id="final-price" style="font-size:15px;"></span>
+                                        тг
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-from-row">
+                            <button id="order-form-submit-btn" onclick="processOrder()">ПОДТВЕРДИТЬ ЗАКАЗ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="productsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="width: 100%">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Товары</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changeStatusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" id="delivery-status-modal-content">
+
+        </div>
+    </div>
+</div>
+
+<div class="message position-fixed bottom-0 end-0 p-3" style="z-index: 11;">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <div class="rounded me-2 message-header" style="background-color:green;"></div>
+            <strong class="me-auto">meloman-clone.kz</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" style="background-color:white;">
+
+        </div>
+    </div>
+</div>
+
+<script src="~/js/profile.js"></script>
+
+<!--Products modal-->
+<style>
+    .product-type-container {
+        min-width: 25%;
+    }
+
+    .product-name-container {
+        max-width: 72%
+    }
+
+    .product-type {
+        color: #000080;
+    }
+
+    .product-name {
+        color: #000080;
+    }
+
+    .product-list-modal-row {
+        border-bottom: 1px solid #ccc;
+        display: flex;
+        padding-top:5px;
+        padding-bottom:5px;
+    }
+    .order-details-modal {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    .product-information-row {
+        display: flex;
+        padding-top: 5px;
+        margin-left:10px;
+    }
+
+    .product-information {
+        border-top: 1px solid #ccc;
+    }
+
+    .order-information {
+        display: flex;
+    }
+
+    .order-details-col {
+        width: fit-content;
+        padding: 10px;
+    }
+
+    .order-details-row {
+        padding: 5px;
+    }
+</style>
+
+<style>
+    .message {
+        position: absolute;
+        top: 70px;
+    }
+
+    .message-header {
+        width: 15px;
+        height: 15px;
+        background-color: green;
+        border-radius: 3px;
+    }
+
+    .basket-list-btn {
+        border: 1px solid #4d4d4d;
+        border-radius: 3px;
+        font-size: 14px;
+    }
+
+    .basket-list-product-delete {
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        padding-right: 20px;
+    }
+
+        .basket-list-product-delete button:hover {
+            background-color: red;
+            color: white;
+            border-radius: 5px;
+        }
+
+    .basket-list-product-quantity {
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+        .basket-list-product-quantity input {
+            width: 20px;
+            margin-right: 5px;
+            margin-left: 5px;
+            height: 25px;
+        }
+
+    .basket-list-product-price {
+        padding-left: 10px;
+        padding-right: 10px;
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        width: 15%;
+    }
+
+    .basket-list-product-name {
+        margin-left: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        width: 60%;
+    }
+
+    .basket-list-img-container {
+        margin-left: 10px;
+        width: 60px;
+    }
+
+        .basket-list-img-container img {
+            width: 55px;
+        }
+
+    .basket-list-item {
+        display: flex;
+        width: 100%;
+        padding-left: 10px;
+        padding-top: 5px;
+    }
+
+    .basket-list-container {
+        width: 95%;
+    }
+
+    #download-excel-btn {
+        background-color: green;
+        color: white;
+        border-radius: 10px;
+        padding: 5px;
+        padding-left: 7px;
+        padding-right: 7px;
+        border: 0;
+        margin-left: 80%;
+        margin-top: 10px;
+        font-weight: 400;
+        font-size: 12px;
+        margin-bottom: 100px;
+    }
+
+        #download-excel-btn:hover {
+            background-color: #006600;
+            cursor: pointer;
+        }
+
+    .options-hide {
+        display: none;
+    }
+
+    .options-list-link {
+        text-decoration: none;
+        color: #4d4d4d;
+        z-index: 2;
+    }
+
+    .options-list {
+        list-style: none;
+        z-index: 2;
+        position: absolute;
+        background-color: white;
+        width: 150px;
+        margin-left: -50px;
+        top: 24px;
+    }
+
+        .options-list li {
+            border: 1px solid #4d4d4d;
+            padding: 3px;
+            z-index: 2;
+        }
+
+    .options-btn {
+        padding-left: 10px;
+        padding-right: 10px;
+        z-index: 0;
+        position: absolute;
+        right: 1.5%;
+    }
+
+    .del-btn:hover {
+        background-color: red;
+        cursor: pointer;
+    }
+
+        .del-btn:hover .options-list-link {
+            color: white;
+        }
+
+    .add-descrip-btn:hover {
+        background-color: #0100d3;
+        cursor: pointer;
+    }
+
+        .add-descrip-btn:hover .options-list-link {
+            color: white;
+        }
+
+    .table {
+        width: 100%;
+        font-weight: normal;
+        height: fit-content;
+        font-size: 11px;
+        z-index: 0;
+        position: relative;
+    }
+
+    .table-header {
+        display: flex;
+        background-color: #a6a6a6;
+    }
+
+    .table-col-small {
+        border: 1px solid #4d4d4d;
+        width: 6.3%;
+        padding: 5px;
+        text-align: center;
+        z-index: 0;
+    }
+
+    .table-col-small-2 {
+        border: 1px solid #4d4d4d;
+        width: 9%;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .table-col-medium {
+        border: 1px solid #4d4d4d;
+        width: 12.6%;
+        padding: 5px;
+        text-align: center;
+        z-index: 0;
+    }
+
+    .table-col-large {
+        border: 1px solid #4d4d4d;
+        width: 18.6%;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .reviews-table {
+        border: 2px solid #4d4d4d;
+        width: 95%;
+        height: fit-content;
+    }
+
+    .review-table-body {
+        width: 100%;
+    }
+
+    .review-table-header {
+        display: flex;
+        background-color: #a6a6a6;
+    }
+
+    .review-table-rev-id {
+        border: 1px solid #4d4d4d;
+        padding: 5px;
+        text-align: center;
+        width: 6.14%;
+        font-size: 11px;
+        font-weight: 500;
+    }
+
+    .review-table-prod-id {
+        border: 1px solid #4d4d4d;
+        padding: 5px;
+        width: 6.14%;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 500;
+    }
+
+    .review-table-prod-type {
+        border: 1px solid #4d4d4d;
+        padding: 5px;
+        width: 13.57%;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 500;
+    }
+
+    .review-table-user {
+        border: 1px solid #4d4d4d;
+        padding: 5px;
+        width: 18%;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 500;
+    }
+
+    .review-adv-disadv {
+        border: 1px solid #4d4d4d;
+        padding: 5px;
+        width: 35%;
+        text-align: center;
+        max-height: 67px;
+        overflow: hidden;
+        font-size: 11px;
+        font-weight: 500;
+    }
+
+    .review-table-rating {
+        border: 1px solid #4d4d4d;
+        padding: 5px;
+        width: 4.5%;
+        font-size: 11px;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .review-table-date {
+        border: 1px solid #4d4d4d;
+        padding: 5px;
+        width: 16.65%;
+        font-size: 11px;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .review-table-row {
+        display: flex;
+        width: 100%;
+    }
+
+    #logout-btn {
+        padding-top: 7px;
+        padding-bottom: 7px;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-weight: 500;
+        color: white;
+        background-color: #0100d3;
+        border-radius: 10px;
+        margin-left: 85%;
+        text-decoration: none;
+    }
+
+        #logout-btn:hover {
+            background-color: #0000b3;
+            cursor: pointer;
+        }
+
+    table {
+        width: 70%;
+        margin-left: 5%;
+        margin-top: 20px;
+    }
+
+    .profile-main-menu-body span {
+        font-weight: 600;
+    }
+
+    .profile-main-menu-body {
+        margin-top: 20px;
+        height: fit-content;
+    }
+
+    .side-menu-item {
+        padding: 10px;
+        color: #0100d3;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 0.4px;
+    }
+
+        .side-menu-item:hover {
+            color: white;
+            background-color: #0100d3;
+            cursor: pointer;
+        }
+
+    .user-profile-wrapper {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+        color: #4d4d4d;
+    }
+
+    .profile-side-menu {
+        height: 90vh;
+        width: 20%;
+        border: 1px solid #0100d3;
+    }
+
+        .profile-side-menu a {
+            text-decoration: none;
+        }
+
+    .profile-main-menu {
+        width: 78%;
+    }
+
+    .profile-main-menu-header {
+        font-size: 22px;
+        font-weight: 600;
+        width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        color: #0100d3;
+    }
+</style>

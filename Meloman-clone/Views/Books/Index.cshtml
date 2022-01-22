@@ -1,0 +1,1640 @@
+﻿@model IEnumerable<Meloman_clone.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div class="books-section-main-container">
+    <div class="books-breadcrumb-wrapper">
+        <span>
+            Главная
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+            </svg>
+        </span>
+        <span style="font-weight: bold;">
+            Книги
+        </span>
+    </div>
+    <div class="books-category-component-wrapper">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="books-category-container">
+                        <div class="books-category-items">
+                            <a href="/Books/Fiction" class="books-category-items-link"><span>Художественная литература</span></a>
+                        </div>
+                        <div class="books-category-items">
+                            <a href="/Books/ForChildren" class="books-category-items-link"><span>Детская литература</span></a>
+                        </div>
+                        <div class="books-category-items">
+                            <a href="/Books/Psychology" class="books-category-items-link"><span>Психологическая литература</span></a>
+                        </div>
+                        <div class="books-category-items">
+                            <a href="/Books/NonFiction" class="books-category-items-link"><span>Научно-популярная литература</span></a>
+                        </div>
+                        <div class="books-category-items last">
+                            <a href="/Books/Business" class="books-category-items-link"><span>Книги по бизнесу</span></a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="swiper-slide">
+                    <div>
+                        <svg class="swiper-button-prev" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000080" class="bi bi-chevron-compact-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z" />
+                        </svg>
+                    </div>
+                    <div class="books-category-container">
+                        <div class="books-category-items">
+                            <span>Иностранные языки</span>
+                        </div>
+                        <div class="books-category-items">
+                            <span>Графическая литература</span>
+                        </div>
+                        <div class="books-category-items">
+                            <span>Здоровье. Мать и дитя</span>
+                        </div>
+                        <div class="books-category-items">
+                            <span>Интернет. Компьютеры</span>
+                        </div>
+                        <div class="books-category-items last">
+                            <span>Книги в подарок</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <svg class="swiper-button-next" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill=" #000080" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div>
+                        <svg class="swiper-button-prev" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000080" class="bi bi-chevron-compact-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z" />
+                        </svg>
+                    </div>
+                    <div class="books-category-container">
+                        <div class="books-category-items">
+                            <span>Публицистика. Биографии. Мемуары.</span>
+                        </div>
+                        <div class="books-category-items">
+                            <span>Эзотерика</span>
+                        </div>
+                        <div class="books-category-items">
+                            <span>Дизайн. Мода. Стиль</span>
+                        </div>
+                        <div class="books-category-items">
+                            <span>Путишествие. Хобби. Спорт</span>
+                        </div>
+                        <div class="books-category-items last">
+                            <span>Дом. Досуг. Хобби</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <svg class="swiper-button-next" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill=" #000080" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="read-with-meloman-wrapper">
+        <div class="read-with-meloman-wrapper-header">
+            <span>#читайСмеломаном</span>
+        </div>
+        <div class="read-with-meloman-wrapper-body">
+            <div class="read-with-meloman-wrapper-item">
+                <img src="https://simg.marwin.kz/media/amasty/blog/70-na-hud-600.png" />
+            </div>
+            <div class="read-with-meloman-wrapper-item">
+                <img src="https://simg.marwin.kz/media/amasty/blog/600_milomu-malysh.png" />
+            </div>
+            <div class="read-with-meloman-wrapper-item">
+                <img src="https://simg.marwin.kz/media/amasty/blog/600_seriya-uolt-disnej.png" />
+            </div>
+            <div class="read-with-meloman-wrapper-item">
+                <img src="https://simg.marwin.kz/media/amasty/blog/600_prochitat-do-35-let.png" />
+            </div>
+            <div class="read-with-meloman-wrapper-item">
+                <img src="https://simg.marwin.kz/media/amasty/blog/knigi-izdatelstva-azbuka-atikus.png" />
+            </div>
+            <div class="read-with-meloman-wrapper-item">
+                <img src="https://simg.marwin.kz/media/amasty/blog/600_chitaem-v-dekabre.gif" />
+            </div>
+        </div>
+    </div>
+
+    <div class="books-categories-main-section-wrapper">
+        <div class="books-categories-section-wrapper">
+            <div class="books-categories-section-wrapper-header">
+                <span>Художественная литература</span>
+            </div>
+            <div class="books-categories-section-wrapper-body">
+                <div class="books-categories-section-wrapper-line">
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/hud1_02.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Современная литература</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/hud2_02.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Остросюжетная литература</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="books-categories-section-wrapper-line">
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/hud3_02.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Сентиментальный роман</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/hud4_02.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Young adult</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="books-categories-section-wrapper-line">
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/hud5_02.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Фантастика и фэнтези</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="font-dec-none color-gray" href="/books/fiction">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/hud6_02.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span >Классическая литература</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="books-categories-section-wrapper">
+            <div class="books-categories-section-wrapper-header">
+                <span>Детская литература</span>
+            </div>
+            <div class="books-categories-section-wrapper-body">
+                <div class="books-categories-section-wrapper-line">
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/det1-min.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Литература для подростков</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/det2-min.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Детские комиксы</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="books-categories-section-wrapper-line">
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/det3-min.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Детский досуг</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/det4-min.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Книжки-игрушки</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="books-categories-section-wrapper-line">
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/det5-min.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Детские энцеклопедии</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/det6-min.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Развивающая литература</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="books-categories-section-wrapper">
+            <div class="books-categories-section-wrapper-header">
+                <span>Наш Казахстан</span>
+            </div>
+            <div class="books-categories-section-wrapper-body">
+                <div class="books-categories-section-wrapper-line">
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/kaz1-min.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Казахстанская классика</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/kaz2-min.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Современная проза</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="books-categories-section-wrapper-line">
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/kaz3-min.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Детская литература</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/kaz4-min.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Деловая литература</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="books-categories-section-wrapper-line">
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/kaz5-min.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Нормы, право</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/kaz6-min.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Публицистика</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="books-categories-section-wrapper">
+            <div class="books-categories-section-wrapper-header">
+                <span>Нонфикшн</span>
+            </div>
+            <div class="books-categories-section-wrapper-body">
+                <div class="books-categories-section-wrapper-line">
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/non1_02.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Научпоп</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/non2_02.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Психология</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="books-categories-section-wrapper-line">
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/non3-min.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Эзотерика</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/non4_02.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Бизнес</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="books-categories-section-wrapper-line">
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/non5_02.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Публицистика</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a сlass="font-dec-none color-gray">
+                        <div class="books-categories-section-wrapper-line-item">
+                            <div class="books-categories-section-wrapper-line-item-img">
+                                <img src="https://simg.marwin.kz/media/wysiwyg/landings/books/cats/non6_02.jpg" />
+                            </div>
+                            <div class="books-categories-section-wrapper-line-item-name">
+                                <span>Языки</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="book-list-wrapper">
+    <div class="book-list-side-bar">
+        <div class="price-range-wrapper">
+            <div class="side-bar-header-group">
+                <span>Цена</span>
+            </div>
+            <div class="price-range-controller">
+                <div class="price-range-controller-item">
+                    <span>от</span>
+                </div>
+                <div class="price-range-controller-item">
+                    <input type="text" id="price-range-from-input" />
+                </div>
+                <div class="price-range-controller-item">
+                    <span>до</span>
+                </div>
+                <div class="price-range-controller-item">
+                    <input type="text" id="price-range-to-input" />
+                </div>
+                <div class="price-range-controller-item">
+                    <span>
+                        <img style="width:10px; height:15px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Tenge_symbol.jpg/144px-Tenge_symbol.jpg" />
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="books-author-list-wrapper">
+            <div class="side-bar-header-group">
+                <span>Автор</span>
+            </div>
+            <div class="books-author-search">
+                <input class="search-input-group" type="text" id="books-author-search-input" placeholder="Поиск" />
+            </div>
+            <div id="books-author-list-id" class="books-author-list">
+                <!-- Data from backend using jQuery -->
+            </div>
+        </div>
+        <div class="books-author-list-wrapper">
+            <div class="side-bar-header-group">
+                <span>Возраст</span>
+            </div>
+            <div class="books-author-list">
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="ageCheckboxHandler(this)" value="0+"/>
+                    <span>0+</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="ageCheckboxHandler(this)" value="6+"/>
+                    <span>6+</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="ageCheckboxHandler(this)" value="12+"/>
+                    <span>12+</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="ageCheckboxHandler(this)" value="14+"/>
+                    <span>14+</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="ageCheckboxHandler(this)" value="16+"/>
+                    <span>16+</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="ageCheckboxHandler(this)" value="18+"/>
+                    <span>18+</span>
+                </div>
+            </div>
+        </div>
+        <div class="books-author-list-wrapper">
+            <div class="side-bar-header-group">
+                <span>Год издания</span>
+            </div>
+            <div class="books-author-search">
+                <input class="search-input-group" type="text" id="books-year-search-input" placeholder="Поиск" />
+            </div>
+            <div class="books-author-list">
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2022" />
+                    <span>2022</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2021" />
+                    <span>2021</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2020" />
+                    <span>2020</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2019" />
+                    <span>2019</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2018" />
+                    <span>2018</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2017" />
+                    <span>2017</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2016" />
+                    <span>2016</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2015" />
+                    <span>2015</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2014" />
+                    <span>2014</span>
+                </div>
+            </div>
+        </div>
+        <div class="books-author-list-wrapper">
+            <div class="side-bar-header-group">
+                <span>Переплет</span>
+            </div>
+            <div class="books-author-list">
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="coverCheckboxHandler(this)" value="Мягкая обложка"/>
+                    <span>Мягкая обложка</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="coverCheckboxHandler(this)" value="Твердый переплет"/>
+                    <span>Твердый переплет</span>
+                </div>
+            </div>
+        </div>
+        <div class="books-author-list-wrapper">
+            <div class="side-bar-header-group">
+                <span>Жанр</span>
+            </div>
+            <div class="books-author-search">
+                <input class="search-input-group" type="text" id="books-genre-search-input" placeholder="Поиск" />
+            </div>
+            <div id="books-genre-list-id" class="books-author-list">
+                <!-- Data from backend using jQuery -->
+            </div>
+        </div>
+    </div>
+    <div class="book-list-main-section">
+        <div class="books-breadcrumb-wrapper">
+            <span>
+                Главная
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </span>
+            <span>
+                Книги
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </span>
+            <span>
+                Художественная литература
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </span>
+            <span style="font-weight: bold;">
+                Всемирная классика
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </span>
+        </div>
+    <div class="book-list-main-section-header">
+        <span>Все книги</span>
+    </div>
+    <div class="book-list-main-section-sort">
+        <span>Сортировка:</span>
+        <a class="book-list-main-section-sort-links font-bold" id="sort-selling-hits">Хиты продаж</a>
+        <a class="book-list-main-section-sort-links" id="sort-news">Новинки</a>
+        <input id="sort-price-type" type="hidden" value="increasing"/>
+        <a class="book-list-main-section-sort-links" id="sort-prices">
+            Цены
+            <div class="sort-price-options">
+                <div class="sort-price-option-item" id="sort-by-decreasing">По убыванию</div>
+                <div class="sort-price-option-item" id="sort-by-increasing">По возрастанию</div>
+            </div>
+        </a>
+        <a class="book-list-main-section-sort-links" id="sort-discount">
+            По размеру скидки
+            <div class="sort-discount-options">
+                <div class="sort-discount-option-item" id="sort-discount-by-decreasing">По убыванию</div>
+                <div class="sort-discount-option-item" id="sort-discount-by-increasing">По возрастанию</div>
+            </div>
+        </a>
+        <a></a>
+    </div>
+    <div class="book-list-container">
+        @foreach (var book in Model)
+        {
+            <div  class="item-block" > 
+                <div class="book-container">
+                    <div class="img-wrapper">
+                        <input type="hidden" value="@book.BookId" />
+                        <img id="img-@book.BookId" src="" />
+                        <div class="add-towishlist-and-search-btn">
+                            <a>
+                                <div class="add-to-wishlist">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="30" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                    </svg>
+                                </div>
+                            </a>
+                            <a>
+                                <div class="details-modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="30" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="book-name-wrapper" id="@book.BookId" onclick="redirectToDetails(this)">
+                        <input type="hidden" value="@book.BookId" />
+                        <span id="">@book.Author</span>: <span id="book-name-1">@book.Name</span>
+                    </div>
+                    <div class="discount-wrapper">
+                        <div id="discount-block-@book.BookId" class="discount-block">
+                            
+                        </div>
+                        
+                        <div class="book-location">
+                            На складе
+                        </div>
+                    </div>
+                    <div class="bottom-wrapper">
+                        <div class="price-wrapper">
+                            @if (book.OldPrice != 0)
+                            {
+                                <div class="item-block-old-price" id="old-price-1">
+                                    <span id="old-price-1">
+                                        @book.OldPrice
+                                    </span>
+                                    <img style="width:10px; height:17px; padding-bottom:5px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Tenge_symbol.jpg/144px-Tenge_symbol.jpg" />
+                                </div>
+                            }
+                            <div class="item-block-price">
+                                <span id="price-1">@book.Price</span>
+                                <img style="width:12px; height:20px; padding-bottom:5px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Tenge_symbol.jpg/144px-Tenge_symbol.jpg" />
+                            </div>
+                        </div>
+                        <div class="tocart-icon" id="tocart-icon-@book.BookId" onclick="addToBasketList(this)">
+                            <input class="to-cart-input" type="hidden" value="@book.BookId"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="31" fill="white" class="bi bi-cart" viewBox="0 0 16 16">
+                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+</div>
+<div class="message position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <div class="rounded me-2 message-header" style="background-color:green;"></div>
+            <strong class="me-auto">meloman-clone.kz</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".sort-price-options").hide();
+        $(".sort-discount-options").hide();
+        $.ajax({
+            type: "GET",
+            url: "/Books/GetAllBooks",
+            success: function (data) {
+                var len = data.length;
+                for (let i = 0; i < len; i++) {
+                    $(`#img-${data[i].BookId}`).attr("src", "data:image/jpg;base64," + data[i].PhotoFront + "");
+                    if (data[i].Discount != 0) {
+                        $(`#discount-block-${data[i].BookId}`).text(`-${data[i].Discount}%`);
+                    } else {
+                        $(`#discount-block-${data[i].BookId}`).css("background-color", "white");
+                    }
+                }
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/Books/GetAuthorsOfExistingBooks",
+            data: { 'category': 'All' },
+            cache:false,
+            success: function (data) {
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    $("#books-author-list-id").append(`<div class="books-author-list-item">
+                                                            <input type="checkbox" onchange="authorCheckboxHandler(this)" value="${data[i]}" />
+                                                            <span>${data[i]}</span>
+                                                        </div>`)
+                }
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/Books/GetGenresOfExistingBooks",
+            data: { 'category': 'All' },
+            cache:false,
+            success: function (data) {
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    $("#books-genre-list-id").append(`<div class="books-author-list-item">
+                                                        <input type="checkbox" onchange="genreCheckboxHandler(this)" value="${data[i]}"/>
+                                                        <span>${data[i]}</span>
+                                                    </div>`)
+                }
+            }
+        })
+
+    })
+
+    $("#price-range-from-input").change(function () {
+        var fromPrice = $("#price-range-from-input").val();
+        sortByPrice(fromPrice)
+    });
+    $("#price-range-to-input").change(function () {
+        var fromPrice = $("#price-range-from-input").val();
+        var toPrice = $("#price-range-to-input").val();
+        sortByPrice(fromPrice, toPrice)
+    })
+    $("#books-author-search-input").change(function () {
+        var searchWord = $("#books-author-search-input").val();
+        searchForAuthor(searchWord)
+    });
+    $("#sort-selling-hits").click(function () {
+        $("#sort-selling-hits").addClass("font-bold");
+        $("#sort-news").removeClass("font-bold");
+        $("#sort-prices").removeClass("font-bold");
+        $("#sort-discount").removeClass("font-bold");
+        getSortedBooks("/Books/GetSortedBooks"); //logic needs to be changed after implementation of purchase functionality
+    })
+
+    $("#sort-news").click(function () {
+        $("#sort-news").addClass("font-bold");
+        $("#sort-selling-hits").removeClass("font-bold");
+        $("#sort-prices").removeClass("font-bold");
+        $("#sort-discount").removeClass("font-bold");
+        $.ajax({
+            type: "GET",
+            url: "/Books/GetAllBooks",
+            success: function (data) {
+                $(".book-list-container").empty();
+                if (data.length == 0) {
+                    $(".book-list-container").append(`
+                        <div style="width:100%; font-size:20px; font-family:600; margin-top:30px; text-align:center;">Найдено 0 товаров по сортировке!</div>
+                    `)
+                }
+
+                var len = data.length;
+                for (var i = len-1; i >= 0; i--) {
+                    addBooksToBookListContainer(data[i].BookId, data[i].Author, data[i].Name, data[i].PhotoFront, data[i].Discount, data[i].OldPrice, data[i].Price);
+                    if (data[i].Discount == 0) {
+                        $(`#discount-block-${data[i].BookId}`).css("background-color", "white");
+                    }
+                    if (data[i].OldPrice == 0) {
+                        $(`#item-old-price-${data[i].BookId}`).hide();
+                    }
+                }
+            }
+        })
+    })
+    $("#sort-prices").click(function () {
+        $(".sort-price-options").toggle();
+        $("#sort-prices").addClass("font-bold");
+        $("#sort-news").removeClass("font-bold");
+        $("#sort-selling-hits").removeClass("font-bold");
+        $("#sort-discount").removeClass("font-bold");
+    })
+    $("#sort-by-increasing").click(function () {
+        getSortedBooks("/Books/SortByIncreasingPrice");
+    })
+    $("#sort-by-decreasing").click(function () {
+        getSortedBooks("/Books/SortByDecreasingPrice");
+    })
+
+    $("#sort-discount").click(function () {
+        $(".sort-discount-options").toggle();
+        $("#sort-prices").removeClass("font-bold");
+        $("#sort-news").removeClass("font-bold");
+        $("#sort-selling-hits").removeClass("font-bold");
+        $("#sort-discount").addClass("font-bold");
+    });
+    $("#sort-discount-by-increasing").click(function () {
+        getSortedBooks("/Books/SortByIncreasingDiscount");
+    })
+    $("#sort-discount-by-decreasing").click(function () {
+        getSortedBooks("/Books/SortByDecreasingDiscount");
+    })
+
+    function sortByPrice(fromPrice, toPrice) {
+        if (toPrice == '') {
+            $.ajax({
+                url: "/Books/GetBooksSortedByPrice",
+                type: "POST",
+                data: { 'fromPrice': fromPrice, 'toPrice': 0 },
+                cache: false,
+                success: function (data) {
+                    $(".book-list-container").empty();
+
+                    var len = data.length;
+                    for (var i = 0; i < len; i++) {
+                        addBooksToBookListContainer(data[i].BookId, data[i].Author, data[i].Name, data[i].PhotoFront, data[i].Discount, data[i].OldPrice, data[i].Price);
+                        if (data[i].Discount == 0) {
+                            $(`#discount-block-${data[i].BookId}`).css("background-color", "white");
+                        }
+                        if (data[i].OldPrice == 0) {
+                            $(`#item-old-price-${data[i].BookId}`).hide();
+                        }
+                    }
+                }
+            });
+        }
+        else {
+            var toPrice = $("#price-range-to-input").val()
+            $.ajax({
+                url: "/Books/GetBooksSortedByPrice",
+                type: "POST",
+                data: { 'fromPrice': fromPrice, 'toPrice': toPrice, 'category': 'All' },
+                cache: false,
+                success: function (data) {
+                    $(".book-list-container").empty();
+
+                    var len = data.length;
+                    for (var i = 0; i < len; i++) {
+                        addBooksToBookListContainer(data[i].BookId, data[i].Author, data[i].Name, data[i].PhotoFront, data[i].Discount, data[i].OldPrice, data[i].Price);
+                        if (data[i].Discount == 0) {
+                            $(`#discount-block-${data[i].BookId}`).css("background-color", "white");
+                        }
+                        if (data[i].OldPrice == 0) {
+                            $(`#item-old-price-${data[i].BookId}`).hide();
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    function addBooksToBookListContainer(BookId, Author, Name, PhotoFront, Discount, OldPrice, Price) {
+        $(".book-list-container").append(`
+            <div class="item-block">
+                <div class="book-container">
+                    <div class="img-wrapper">
+                        <img id="img-${BookId}" src="data:image/jpg;base64,${PhotoFront}" />
+                        <div class="add-towishlist-and-search-btn">
+                            <a>
+                                <div class="add-to-wishlist">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="30" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                    </svg>
+                                </div>
+                            </a>
+                            <a>
+                                <div class="details-modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="30" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="book-name-wrapper" id="${BookId}" onclick="redirectToDetails(this)">
+                        <span id="">${Author}</span>: <span id="book-name-1">${Name}</span>
+                    </div>
+                    <div class="discount-wrapper">
+                        <div id="discount-block-${BookId}" class="discount-block">
+                            ${Discount}%
+                        </div>
+
+                        <div class="book-location">
+                            На складе
+                        </div>
+                    </div>
+                    <div class="bottom-wrapper">
+                        <div class="price-wrapper">
+                                <div class="item-block-old-price" id="item-old-price-${BookId}">
+                                    <span id="old-price-1">
+                                        ${OldPrice}
+                                    </span>
+                                    <img style="width:10px; height:17px; padding-bottom:5px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Tenge_symbol.jpg/144px-Tenge_symbol.jpg" />
+                                </div>
+
+                            <div class="item-block-price">
+                                <span id="price-1">${Price}</span>
+                                <img style="width:12px; height:20px; padding-bottom:5px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Tenge_symbol.jpg/144px-Tenge_symbol.jpg" />
+                            </div>
+                        </div>
+                        <div class="tocart-icon" id="tocart-icon-${BookId}" onclick="addToBasketList(this)">
+                            <input class="to-cart-input" type="hidden" value="${BookId}"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="31" fill="white" class="bi bi-cart" viewBox="0 0 16 16">
+                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+`)
+    }
+
+    function searchForAuthor(searchWord) {
+        $.ajax({
+            type: "POST",
+            url: "/Books/GetAuthorsOfExistingBooks",
+            data: { 'category': 'All' },
+            cache: false,
+            success: function (data) {
+                $("#books-author-list-id").empty();
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    var authorName = data[i].toLowerCase()
+                    if (authorName.includes(searchWord.toLowerCase())) {
+                        $("#books-author-list-id").append(`<div class="books-author-list-item">
+                                                                <input type="checkbox" class="author-checkbox" value="${data[i]}" />
+                                                                <span>${data[i]}</span>
+                                                            </div>`)
+                    }
+                }
+            }
+        });
+    }
+
+    var authors = [];
+    function authorCheckboxHandler(elem) {
+        if (elem.checked) {
+            authors.push(elem.value);
+        }
+        else {
+            authors = authors.filter(author => author != elem.value);
+        }
+        getSortedBooks("/Books/GetSortedBooks")
+    }
+
+    var suggestedAges = [];
+    function ageCheckboxHandler(elem) {
+        if (elem.checked) {
+            suggestedAges.push(elem.value);
+        }
+        else {
+            suggestedAges = suggestedAges.filter(age => age != elem.value);
+        }
+        getSortedBooks("/Books/GetSortedBooks")
+    }
+
+    var publishedYears = [];
+    function yearCheckboxHandler(elem) {
+        if (elem.checked) {
+            publishedYears.push(elem.value);
+        }
+        else {
+            publishedYears = publishedYears.filter(year => year != elem.value);
+        }
+        getSortedBooks("/Books/GetSortedBooks")
+    }
+
+    var covers = [];
+    function coverCheckboxHandler(elem) {
+        if (elem.checked) {
+            covers.push(elem.value);
+        }
+        else {
+            covers = covers.filter(cover => cover != elem.value);
+        }
+        getSortedBooks("/Books/GetSortedBooks")
+    }
+
+    var genres = [];
+    function genreCheckboxHandler(elem) {
+        if (elem.checked) {
+            genres.push(elem.value);
+        }
+        else {
+            genres = genres.filter(genre => genre != elem.value);
+        }
+        getSortedBooks("/Books/GetSortedBooks")
+    }
+
+    function getSortedBooks(urlPath) {
+        $.ajax({
+            url: urlPath,
+            type: "POST",
+            data: {
+                'category': 'All',
+                'authors':authors,
+                'suggestedAges': suggestedAges,
+                'publishedYears': publishedYears,
+                'covers': covers,
+                'genres': genres
+            },
+            cache: false,
+            success: function (data) {
+                $(".book-list-container").empty();
+                if (data.length == 0) {
+                    $(".book-list-container").append(`
+                        <div style="width:100%; font-size:20px; font-family:600; margin-top:30px; text-align:center;">Найдено 0 товаров по сортировке!</div>
+                    `)
+                }
+
+                var len = data.length;
+                for (var i = 0; i < len; i++) {
+                    addBooksToBookListContainer(data[i].BookId, data[i].Author, data[i].Name, data[i].PhotoFront, data[i].Discount, data[i].OldPrice, data[i].Price);
+                    if (data[i].Discount == 0) {
+                        $(`#discount-block-${data[i].BookId}`).css("background-color", "white");
+                    }
+                    if (data[i].OldPrice == 0) {
+                        $(`#item-old-price-${data[i].BookId}`).hide();
+                    }
+                }
+            }
+        })
+    }
+
+    function addToBasketList(elem) {
+        var id = elem.id;
+        var bookId = $(`#${id}`).children('input').val();
+        if (sessionStorage.getItem("bookIds") === null) {
+            var bookIds = [];
+            bookIds[0] = bookId;
+            sessionStorage.setItem('bookIds', JSON.stringify(bookIds));
+            showMessage('Книга добавлена в корзину!')
+        } else {
+            var storedBookIds = JSON.parse(sessionStorage.getItem('bookIds'));
+            var arrLength = storedBookIds.length;
+            storedBookIds[arrLength] = bookId;
+            sessionStorage.setItem('bookIds', JSON.stringify(storedBookIds));
+            showMessage('Книга добавлена в корзину!')
+        }
+    }
+    function showMessage(message) {
+        var toastLiveExample = document.getElementById('liveToast')
+        $(".toast-body").text(message);
+        var toast = new bootstrap.Toast(toastLiveExample)
+        toast.show()
+    }
+
+    function redirectToDetails(elem) {
+        var id = elem.id;
+        $.ajax({
+            type: "POST",
+            url: "/Books/RedirectToDetails",
+            data: { 'id': id },
+            cache: false,
+            success: function (data) {
+                window.location.href = data;
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+
+
+</script>
+<style>
+    .message {
+        position: absolute;
+        top: 70px;
+    }
+
+    .message-header {
+        width: 15px;
+        height: 15px;
+        background-color: green;
+        border-radius: 3px;
+    }
+    .sort-price-options{
+        width:fit-content;
+        height:fit-content;
+        position:absolute;
+        z-index:2;
+        border:1px solid #4d4d4d;
+    }
+    .sort-price-option-item{
+        cursor:pointer;
+        padding:3px;
+        font-size:11px;
+        width:100%;
+        color:#4d4d4d;
+    }
+    .sort-price-option-item:hover{
+        color:#0100d3;
+    }
+    #sort-by-increasing {
+        border-top: 1px solid #4d4d4d;
+    }
+    .sort-discount-options {
+        width: fit-content;
+        height: fit-content;
+        position: absolute;
+        z-index: 2;
+        border: 1px solid #4d4d4d;
+    }
+    .sort-discount-option-item {
+        cursor: pointer;
+        padding: 3px;
+        font-size: 11px;
+        width: 100%;
+        color: #4d4d4d;
+    }
+    .sort-discount-option-item:hover {
+        color: #0100d3;
+    }
+    #sort-discount-by-increasing {
+        border-top: 1px solid #4d4d4d;
+    }
+
+    .font-dec-none {
+        text-decoration: none;
+    }
+    .font-dec-none:hover{
+        text-decoration:underline;
+        text-decoration-color:#4d4d4d;
+    }
+    .color-gray{
+        color:#4d4d4d;
+    }
+    .book-list-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .item-block {
+        width: 24%;
+    }
+
+    .book-container {
+        margin-left: auto;
+        margin-right: auto;
+        width: 210px;
+        margin-top: 30px;
+        height: 350px;
+        padding-left: 7px;
+        padding-right: 8px;
+        margin-left: 45px;
+        margin-right: 45px;
+        cursor:pointer;
+    }
+
+    .book-container:hover {
+        box-shadow: 0px -1px 8px 1px rgba(34, 60, 80, 0.2);
+        border-radius: 5px;
+    }
+
+    .img-wrapper {
+        height: 200px;
+        width: 200px;
+        padding-top: 20px;
+        padding-bottom: 5px;
+        z-index: -1;
+    }
+
+    .img-wrapper img {
+        height: 200px;
+        width: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        background-size: cover;
+    }
+
+    .book-name-wrapper {
+        width: 100%;
+        margin-top: 22px;
+        height: 40px;
+        font-size: 14px;
+        font-weight: normal;
+        overflow:hidden;
+    }
+    .book-name-wrapper:hover{
+        text-decoration:underline;
+        cursor:pointer;
+    }
+
+    .discount-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        height: 32px;
+        margin-top: 5px;
+    }
+
+    .discount-block {
+        width: 41.25px;
+        height: 25px;
+        color: white;
+        background-color: #f15a2c;
+        padding-left: 3px;
+        padding-top: 2px;
+        font-size: 16px;
+        text-align:center;
+    }
+
+    .book-location {
+        font-size: 13px;
+        padding-top: 12px;
+    }
+
+    .bottom-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .price-wrapper {
+        height: 40px;
+        width: 70px;
+    }
+
+    .item-block-old-price {
+        font-size: 16px;
+        color: #727272;
+        text-decoration-line: line-through;
+        text-decoration-thickness: 1px;
+        text-decoration-color: #f15a2c;
+    }
+
+    .item-block-price {
+        font-size: 20px;
+    }
+
+    .tocart-icon {
+        background-color: #f15a2c;
+        width: 76px;
+        height: 40px;
+        border-radius: 5px;
+    }
+
+    .tocart-icon svg {
+        padding-left: 22px;
+        padding-top: 5px;
+    }
+
+    .add-towishlist-and-search-btn {
+        width: 75px;
+        display: flex;
+        justify-content: space-between;
+        margin-left: 115px;
+        margin-top: -50px;
+    }
+
+    .add-to-wishlist {
+        background-color: #0100d3;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+    }
+
+        .add-to-wishlist svg {
+            padding-left: 9px;
+            padding-top: 9px;
+        }
+
+    .details-modal {
+        background-color: #0100d3;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+    }
+
+    .details-modal svg {
+        padding-left: 9px;
+        padding-top: 9px;
+    }
+
+
+    .search-input-group {
+        width: 100%;
+        font-size: 12px;
+        height: 26px;
+    }
+
+    .books-author-list-item {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .books-author-search {
+        margin-left: 20px;
+    }
+
+    .books-author-list {
+        margin-left: 20px;
+        max-height: 130px;
+        overflow-y: scroll;
+    }
+
+    .books-author-search {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #books-author-search-input {
+        width: 100%;
+        font-size: 12px;
+        height: 26px;
+    }
+
+    .books-author-list-wrapper {
+        max-height: 205px;
+        margin-bottom: 10px;
+    }
+
+    .price-range-controller-item {
+        margin-left: 20px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .price-range-controller-item input {
+        width: 80px;
+        height: 40px;
+    }
+
+    .price-range-controller-item span {
+        font-size: 14px;
+    }
+
+    .side-bar-header-group {
+        font-size: 14px;
+        font-weight: bold;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    .price-range-controller {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .price-range-wrapper {
+        margin-top: 10px;
+    }
+
+    .books-breadcrumb-wrapper {
+        height: 22px;
+        margin-left: 20px;
+        font-size: 12px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .book-list-main-section-header {
+        margin-left: 20px;
+        font-size: 26px;
+        font-weight: bold;
+    }
+
+    .book-list-wrapper {
+        font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+        color: #4d4d4d;
+        height: fit-content;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .book-list-side-bar {
+        width: 22%;
+    }
+
+    .book-list-main-section {
+        width: 76%;
+    }
+
+    .book-list-main-section-sort {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 20px;
+        width: 45%;
+        font-size: 15px;
+        margin-top: 40px;
+        margin-bottom:20px;
+        position:relative;
+    }
+
+    .book-list-main-section-sort-links {
+        color: #4d4d4d;
+        cursor:pointer;
+    }
+
+    .book-list-main-section-sort span {
+        font-weight: bold;
+    }
+
+    .book-list-main-section-sort a {
+        text-decoration: underline;
+    }
+
+    .font-bold {
+        font-weight: bold;
+        color: #0100d3;
+    }
+
+    .books-breadcrumb-wrapper {
+        height: 22px;
+        margin-left: 20px;
+        font-size: 12px;
+        margin-bottom: 20px;
+        margin-top: 10px;
+    }
+
+    .read-with-meloman-wrapper-item img {
+        width: 220px;
+        height: 220px;
+    }
+
+    .read-with-meloman-wrapper-header {
+        height: 22px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        color: #F15A2C;
+        font-size: 20px;
+    }
+
+    .read-with-meloman-wrapper-body {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .read-with-meloman-wrapper {
+        height: 300px;
+        margin-bottom: 24px;
+        margin-left: 20px;
+        width: 98%;
+        margin-top: 20px;
+    }
+
+    .books-categories-section-wrapper-line-item-name {
+        height: 40px;
+        width: 153px;
+        font-size: 15px;
+        color:#4d4d4d;
+    }
+    .books-categories-section-wrapper-line-item-name span {
+        text-decoration: none;
+    }
+
+    .books-categories-section-wrapper-line-item-img img {
+        height: 153px;
+        width: 154px;
+    }
+
+    .books-categories-section-wrapper-line-item-img {
+        height: 153px;
+        width: 154px;
+        margin-bottom: 6px;
+    }
+
+    .books-categories-section-wrapper-line-item {
+        width: 99%;
+        cursor: pointer;
+    }
+
+    .books-categories-section-wrapper-line {
+        height: 203px;
+        margin-bottom: 16px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .books-categories-main-section-wrapper {
+        width: 98%;
+        height: fit-content;
+        margin-top: 50px;
+        margin-left: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .books-categories-section-wrapper {
+        width: 24%;
+    }
+
+    .books-categories-section-wrapper-header {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        font-size: 19px;
+        height: 22px;
+        font-weight: 600;
+    }
+
+    .books-categories-section-wrapper-body {
+        height: fit-content;
+    }
+
+    html,
+    body {
+        position: relative;
+        font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+        color: #4d4d4d;
+    }
+
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-slide {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    img {
+        width: 400px;
+        height: 400px;
+    }
+
+    @@media only screen and (min-width:100px) and (max-width:500px) {
+        img {
+            width: 200px;
+            height: 200px;
+        }
+    }
+
+    .books-category-container {
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 50px;
+    }
+    .books-category-items-link{
+        text-decoration:none;
+        color:#4d4d4d;
+    }
+    .books-category-items-link:hover {
+        color: #0000b3;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .books-category-items {
+        border-right: 1px solid #a6a6a6;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        padding-right: 55px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        color: #4d4d4d;
+        font-size: 13px;
+        font-weight: bold;
+        font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+    }
+
+    .books-category-items:hover {
+        color: #0000b3;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .books-category-component-wrapper {
+        overflow-x: hidden;
+    }
+
+    .last {
+        border: 0px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $(".books-breadcrumb-wrapper").hide();
+    });
+    $(".books-categories-section-wrapper-line-item").mouseover(function () {
+        $(this).css("text-decoration", "underline");
+    });
+    $(".books-categories-section-wrapper-line-item").mouseout(function () {
+        $(this).css("text-decoration", "none");
+    })
+</script>
+<script>
+
+    var swiper = new Swiper('.swiper-container', {
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        }
+    });
+</script>
+
+
+<style>
+    th {
+        font-size: 12px;
+    }
+
+    td {
+        font-size: 12px;
+    }
+</style>

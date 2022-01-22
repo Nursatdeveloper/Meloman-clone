@@ -1,0 +1,463 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+
+}
+<script src="~/js/site.js"></script>
+<link href="~/css/home.css" rel="stylesheet" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<div class="main">
+    <div class="top-section">
+        <div class="row row-cols-auto scroll-section">
+            <div class="col"><a href="#">Акций</a></div>
+            <div class="col"><a href="#">Игрушки и развлечение</a></div>
+            <div class="col"><a href="#">Экспресс магазин</a></div>
+            <div class="col"><a href="#">LEGO</a></div>
+            <div class="col"><a href="#">Гарри Поттер</a></div>
+            <div class="col"><a href="#">Школа, канцелярия</a></div>
+            <div class="col"><a href="#">"Наруто"</a></div>
+            <div class="col"><a href="/books">Книги</a></div>
+            <div class="col"><a href="#">Мама и малыш</a></div>
+            <div class="col"><a href="#">Сладости-напитки</a></div>
+            <div class="col"><a href="#">Зоотовары</a></div>
+            <div class="col"><a href="#">Рекомендуем</a></div>
+            <div class="col"><a href="#">ТОП продаж</a></div>
+        </div>
+    </div>
+    <div class="carousel-container">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://simg.marwin.kz/media/wysiwyg/dynamic/deskknigiakc.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://simg.marwin.kz/media/wysiwyg/dynamic/superceny-na-seriyu-knig-uolt-disnej-nerasskazannye-istorii2.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://simg.marwin.kz/media/wysiwyg/dynamic/22/garri-potter-20-let-spustya-vozvrashchenie-v-hogvarts2.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://simg.marwin.kz/media/wysiwyg/dynamic/winning-moves-razvlekatelnye-kartochnye-igry2.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://simg.marwin.kz/media/wysiwyg/dynamic/vyberite-svoi-iz-mnozhestva-do-70-na-knigi2.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://simg.marwin.kz/media/wysiwyg/dynamic/30-na-seriyu-knigi-kotorye-nuzhno-prochitat-do-35-let-izdatelstva-ehksmo2.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://simg.marwin.kz/media/wysiwyg/dynamic/premera-filma-chelovek-pauk-net-puti-domoj2.jpg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="gift-ideas-component">
+        <div class="gift-ideas-row">
+            <div class="gift-ideas-img-long">
+                <a><img src="https://simg.marwin.kz/media/wysiwyg/dynamic/4-1/dekabr-41-m-6.jpg" /></a>
+            </div>
+            <div class="gift-ideas-img">
+                <a><img src="https://simg.marwin.kz/media/wysiwyg/dynamic/4-2-3/dekabr-ng-k-7.jpg" /></a>
+            </div>
+            <div class="gift-ideas-img">
+                <a><img src="https://simg.marwin.kz/media/wysiwyg/dynamic/4-2-3/dekabr-ng-s-24.jpg" /></a>
+            </div>
+        </div>
+        <div class="gift-ideas-row">
+            <div class="gift-ideas-img">
+                <a><img src="https://simg.marwin.kz/media/wysiwyg/dynamic/4-2-3/dekabr-ng-s-30.jpg" /></a>
+            </div>
+            <div class="gift-ideas-img">
+                <a><img src="https://simg.marwin.kz/media/wysiwyg/dynamic/4-2-3/dekabr-ng-s-31.jpg" /></a>
+            </div>
+            <div class="gift-ideas-img">
+                <a><img src="https://simg.marwin.kz/media/wysiwyg/dynamic/4-2-3/dekabr-ng-k-3.jpg" /></a>
+            </div>
+            <div class="gift-ideas-img">
+                <a><img src="https://simg.marwin.kz/media/wysiwyg/dynamic/4-2-3/dekabr-ng-s-2.jpg" /></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="new-books">
+        <div class="new-books-title">
+            Книжные Новинки
+        </div>
+        <div class="new-books-section">
+            <div class="section-wrapper">
+                <div class="row">
+                    <div id="book-1" class="col new-books-section-item">
+                        <input id="hidden-id-1" type="hidden" value="" />
+                        <div class="img-wrapper">
+                            <img class="new-books-img-1" id="img-1" src="" alt="">
+                            <div class="buttons-wrapper">
+                                <a>
+                                    <div id="discount-wrapper-1" class="sale-wrapper">
+
+                                    </div>
+                                </a>
+                                <a>
+                                    <div class="add-to-wishlist">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                        </svg>
+                                    </div>
+                                </a>
+                                <a>
+                                    <div class="details-modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="new-books-section-item-price">
+                            <span id="new-books-price-1">
+
+                            </span>
+                            <span id="old-price-1" style="font-size: 0.8em; font-weight: normal;position: absolute;margin-left:10px;text-decoration-line: line-through; text-decoration-color:#ff6600;">
+
+                            </span>
+                        </div>
+                        <div id="new-books-info-1" class="new-books-section-item-info">
+
+                        </div>
+                    </div>
+
+                    <div id="book-2" class="col new-books-section-item">
+                        <input id="hidden-id-2" type="hidden" value="" />
+                        <div class="img-wrapper">
+                            <img class="new-books-img" id="img-2" src="" alt="">
+                            <div class="buttons-wrapper">
+                                <a>
+                                    <div id="discount-wrapper-2" class="sale-wrapper">
+
+                                    </div>
+                                </a>
+                                <a>
+                                    <div class="add-to-wishlist">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                        </svg>
+                                    </div>
+                                </a>
+                                <a>
+                                    <div class="details-modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="new-books-section-item-price">
+                            <span id="new-books-price-2">
+
+                            </span>
+                            <span id="old-price-2" style="font-size: 0.8em; font-weight: normal;position: absolute;margin-left:10px;text-decoration-line: line-through; text-decoration-color:#ff6600;">
+
+                            </span>
+                        </div>
+                        <div id="new-books-info-2" class="new-books-section-item-info">
+
+                        </div>
+                    </div>
+
+                    <div id="book-3" class="col new-books-section-item">
+                        <input id="hidden-id-3" type="hidden" value="" />
+                        <div class="img-wrapper">
+                            <img class="new-books-img" id="img-3" src="" alt="">
+                            <div class="buttons-wrapper">
+                                <a>
+                                    <div id="discount-wrapper-3" class="sale-wrapper">
+
+                                    </div>
+                                </a>
+                                <a>
+                                    <div class="add-to-wishlist">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                        </svg>
+                                    </div>
+                                </a>
+                                <a>
+                                    <div class="details-modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="new-books-section-item-price">
+                            <span id="new-books-price-3">
+
+                            </span>
+                            <span id="old-price-3" style="font-size: 0.8em; font-weight: normal;position: absolute;margin-left:10px;text-decoration-line: line-through; text-decoration-color:#ff6600;">
+
+                            </span>
+                        </div>
+                        <div id="new-books-info-3" class="new-books-section-item-info">
+
+                        </div>
+                    </div>
+
+                    <div id="book-4" class="col new-books-section-item">
+                        <input id="hidden-id-4" type="hidden" value="" />
+                        <div class="img-wrapper">
+                            <img class="new-books-img" id="img-4" src="" alt="">
+                            <div class="buttons-wrapper">
+                                <a>
+                                    <div id="discount-wrapper-4" class="sale-wrapper">
+
+                                    </div>
+                                </a>
+                                <a>
+                                    <div class="add-to-wishlist">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                        </svg>
+                                    </div>
+                                </a>
+                                <a>
+                                    <div class="details-modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="new-books-section-item-price">
+                            <span id="new-books-price-4">
+
+                            </span>
+                            <span id="old-price-4" style="font-size: 0.8em; font-weight: normal;position: absolute;margin-left:10px;text-decoration-line: line-through; text-decoration-color:#ff6600;">
+
+                            </span>
+                        </div>
+                        <div id="new-books-info-4" class="new-books-section-item-info">
+
+                        </div>
+                    </div>
+
+                    <div id="book-5" class="col new-books-section-item">
+                        <input id="hidden-id-5" type="hidden" value="" />
+                        <div class="img-wrapper">
+                            <img class="new-books-img" id="img-5" src="" alt="">
+                            <div class="buttons-wrapper">
+                                <a>
+                                    <div id="discount-wrapper-5" class="sale-wrapper">
+
+                                    </div>
+                                </a>
+                                <a>
+                                    <div class="add-to-wishlist">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                        </svg>
+                                    </div>
+                                </a>
+                                <a>
+                                    <div class="details-modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="new-books-section-item-price">
+                            <span id="new-books-price-5">
+
+                            </span>
+                            <span id="old-price-5" style="font-size: 0.8em; font-weight: normal;position: absolute;margin-left:10px;text-decoration-line: line-through; text-decoration-color:#ff6600;">
+
+                            </span>
+                        </div>
+                        <div id="new-books-info-5" class="new-books-section-item-info">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popular-authors-component-wrapper">
+        <div class="popular-authors-component-header">
+            <span>Популярные авторы</span>
+        </div>
+        <div class="popular-authors-component-body">
+            <div class="popular-authors-component-item">
+                <div class="popular-authors-component-item-img">
+                    <img id="popular-author-img-1" src="" />
+                </div>
+                <div class="popular-authors-component-item-name">
+                    <span id="popular-author-name-1"></span>
+                </div>
+            </div>
+            <div class="popular-authors-component-item">
+                <div class="popular-authors-component-item-img">
+                    <img id="popular-author-img-2" src="" />
+                </div>
+                <div class="popular-authors-component-item-name">
+                    <span id="popular-author-name-2"></span>
+                </div>
+            </div>
+            <div class="popular-authors-component-item">
+                <div class="popular-authors-component-item-img">
+                    <img id="popular-author-img-3" src="" />
+                </div>
+                <div class="popular-authors-component-item-name">
+                    <span id="popular-author-name-3"></span>
+                </div>
+            </div>
+            <div class="popular-authors-component-item">
+                <div class="popular-authors-component-item-img">
+                    <img id="popular-author-img-4" src="" />
+                </div>
+                <div class="popular-authors-component-item-name">
+                    <span id="popular-author-name-4"></span>
+                </div>
+            </div>
+            <div class="popular-authors-component-item">
+                <div class="popular-authors-component-item-img">
+                    <img id="popular-author-img-5" src="" />
+                </div>
+                <div class="popular-authors-component-item-name">
+                    <span id="popular-author-name-5"></span>
+                </div>
+            </div>
+            <div class="popular-authors-component-item">
+                <div class="popular-authors-component-item-img">
+                    <img id="popular-author-img-6" src="" />
+                </div>
+                <div class="popular-authors-component-item-name">
+                    <span id="popular-author-name-6"></span>
+                </div>
+            </div>
+            <div class="popular-authors-component-item">
+                <div class="popular-authors-component-item-img">
+                    <img id="popular-author-img-7" src="" />
+                </div>
+                <div class="popular-authors-component-item-name">
+                    <span id="popular-author-name-7"></span>
+                </div>
+            </div>
+            <div class="popular-authors-component-item">
+                <div class="popular-authors-component-item-img">
+                    <img id="popular-author-img-8" src="" />
+                </div>
+                <div class="popular-authors-component-item-name">
+                    <span id="popular-author-name-8"></span>
+                </div>
+            </div>
+            <div class="popular-authors-component-item">
+                <div class="popular-authors-component-item-img">
+                    <img id="popular-author-img-9" src="" />
+                </div>
+                <div class="popular-authors-component-item-name">
+                    <span id="popular-author-name-9"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Books/GetLastFiveBooks",
+            success: function (data) {
+                if (data == "empty") {
+                    alert("Empty");
+                }
+                for (let i = 1; i < 6; i++) {
+                    $(`#img-${i}`).attr("src", "data:image/jpg;base64," + data[i - 1].PhotoFront + "");
+                    if (data[i - 1].Discount == 0) {
+                        $(`#discount-wrapper-${i}`).hide();
+                    } else {
+                        $(`#discount-wrapper-${i}`).text(`-${data[i - 1].Discount}%`);
+                    }
+                    $(`#new-books-price-${i}`).text(`${data[i - 1].Price} T`);
+                    if (data[i - 1].OldPrice == 0) {
+                        $(`#old-price-${i}`).hide();
+                    } else {
+                        $(`#old-price-${i}`).text(`${data[i - 1].OldPrice} T`);
+                    }
+                    $(`#new-books-info-${i}`).text(`${data[i - 1].Author} ${data[i - 1].Name}`);
+                    $(`#hidden-id-${i}`).val(data[i - 1].BookId);
+                    
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "/Books/GetAuthors",
+            success: function (data) {
+                var len = data.length;
+                for (var i = 1; i <= len; i++) {
+                    $(`#popular-author-img-${i}`).attr("src", "data:image/jpg;base64," + data[i - 1].Photo + "");
+                    $(`#popular-author-name-${i}`).text(data[i-1].Name);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+    function RedirectToDetails(id) {
+        $.ajax({
+            type: "POST",
+            url: "/Books/RedirectToDetails",
+            data: { 'id': id },
+            cache: false,
+            success: function (data) {
+                window.location.href = data;
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+    $("#book-1").click(function () {
+        var id = $("#book-1 input").val();
+        RedirectToDetails(id);
+    });
+    $("#book-2").click(function () {
+        var id = $("#book-2 input").val();
+        RedirectToDetails(id);
+    });
+    $("#book-3").click(function () {
+        var id = $("#book-3 input").val();
+        RedirectToDetails(id);
+    });
+    $("#book-4").click(function () {
+        var id = $("#book-4 input").val();
+        RedirectToDetails(id);
+    });
+    $("#book-5").click(function () {
+        var id = $("#book-5 input").val();
+        RedirectToDetails(id);
+    });
+
+
+</script>
+

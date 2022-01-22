@@ -1,0 +1,118 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<div class="main-container">
+    <div class="line">
+        <label>Author name:</label>
+        <input type="text" id="name" />
+    </div>
+    <div class="line">
+        <label>Photo</label>
+        <input type="file" id="author-img" />
+    </div>
+    <div class="line">
+        <button id="submit-btn">Submit</button>
+    </div>
+</div>
+<div class="message position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <div class="rounded me-2 message-header"></div>
+            <strong class="me-auto">Message</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+    });
+    $("#author-img").change(function (event) {
+        var files = event.target.files;
+    });
+    $("#submit-btn").click(function () {
+        var files = $("#author-img").prop("files");
+        var formData = new FormData();
+        for (var i = 0; i < files.length; i++) {
+            formData.append("file", files[i]);
+        }
+        var author = {
+            Name: $("#name").val()
+        };
+        formData.append("Author", JSON.stringify(author));
+
+        $.ajax({
+            type: "POST",
+            url: "/Books/SaveAuthor",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                ResetFields();
+                if (data == "Saved") {
+                    ShowSaveMessage();
+                }
+                else {
+                    ShowFailMessage();
+                }
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+    });
+    function ResetFields() {
+        $("#name").val("");
+        $("author-img").attr("src", "");
+    }
+    function ShowSaveMessage() {
+        var toastLiveExample = document.getElementById('liveToast')
+        $(".toast-body").text("Book Author is saved!");
+        var toast = new bootstrap.Toast(toastLiveExample)
+        toast.show()
+    }
+    function ShowFailMessage() {
+        var toastLiveExample = document.getElementById('liveToast')
+        $(".toast-body").text("Failed to save!");
+        var toast = new bootstrap.Toast(toastLiveExample)
+        toast.show()
+    }
+</script>
+
+<style>
+    .main-container {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10%;
+        margin-bottom: 100px;
+        height: 180px;
+        width: 400px;
+        padding: 20px;
+        box-shadow: 0px -1px 12px 7px rgba(34, 60, 80, 0.2);
+        border-radius: 8px;
+    }
+
+    .line {
+        margin-bottom: 20px;
+    }
+
+    #submit-btn {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        border: 0;
+        background-color: #0100d3;
+        color: white;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+</style>

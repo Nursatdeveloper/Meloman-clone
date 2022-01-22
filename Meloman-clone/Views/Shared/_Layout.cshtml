@@ -1,0 +1,423 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meloman_clone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<div class="loaderbody" id="loaderbody">
+    <div class="loader"></div>
+</div>
+<body style="display:none;">
+    <header class="page-header">
+        <div class="header-wrapper">
+            <div class="top-header">
+                <div class="top-header-left">
+                    <div class="container">
+                        <div class="row row-cols-6">
+                            <div class="col-3 top-header-left-links">
+                                Ваш город: Алматы
+                            </div>
+                            <div class="col top-header-left-links">
+                                Магазины
+                            </div>
+                            <div class="col-2 top-header-left-links">
+                                Мои заказы
+                            </div>
+                            <div class="col top-header-left-links">
+                                Подарочные сертификаты
+                            </div>
+                            <div class="col top-header-left-links">
+                                Частые вопросы
+                            </div>
+                            <div" class="col top-header-left-links">
+                                Бесплатная доставка
+                        </div>
+                    </div>
+                </div>
+                <div class="top-header-right">
+                    <div class="container">
+                        <div class="row row-cols-4">
+                            <div class="col-3 top-header-left-links">
+                                <a>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z" />
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="col top-header-left-links">
+                                <a>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
+                                    </svg>
+                                </a>
+                            </div>
+                            <div id="tel-number" class="col-2 top-header-left-links">
+                                8 727 338 3700
+                            </div>
+                            <div id="free-call-number" class="col top-header-left-links ">
+                                Бесплатный звонок с мобильного 7890
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="bottom-header">
+            <div class="bottom-header-left">
+                <div class="menu-icon" onclick="openSideBar(this)">
+                    <div class="menu-icon-line1"></div>
+                    <div class="menu-icon-line2"></div>
+                    <div class="menu-icon-line3"></div>
+                </div>
+                <div class="meloman-logo">
+                    <a href="/"><img id="meloman-img" src="https://simg.marwin.kz/media/logo/stores/1/mel_NY_2021.png" alt="Meloman"></a>
+                </div>
+            </div>
+            <div class="bottom-header-right">
+                <div class="search-wrapper">
+                    <input class="search-input" type="text" placeholder="Найти товар..." />
+                    <div class="search-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="bottom-header-right-icons">
+                    <div class="right-icon">
+                        <a>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="26" fill="#a6a6a6" class="bi bi-heart" viewBox="0 0 16 16">
+                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                            </svg>
+                            <p class="wishlist-icon-text">Избранное</p>
+                        </a>
+                    </div>
+                    <div class="right-icon">
+                        @{ 
+                            var cookie = Context.Request.Cookies.FirstOrDefault(e => e.Key == "MelomanAuthCookie");
+                        }
+                        @if (cookie.Key == "MelomanAuthCookie")
+                        {
+                            <a id="header-login-icon-link" style="cursor:pointer; text-decoration:none;" href="/User/Profile">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="25" fill="#a6a6a6" class="bi bi-cart" viewBox="0 0 16 16">
+                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                </svg>
+                                <p class="wishlist-icon-text">Корзина</p>
+                            </a>
+                        }
+                        else
+                        {
+                            <a id="header-login-icon-link" style="cursor:pointer; text-decoration:none;" href="/User/Login">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="25" fill="#a6a6a6" class="bi bi-cart" viewBox="0 0 16 16">
+                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                </svg>
+                                <p class="wishlist-icon-text">Корзина</p>
+                            </a>
+                        }
+
+                    </div>
+                    <div class="right-icon">
+
+                        @if (cookie.Key == "MelomanAuthCookie")
+                        {
+                            <a id="header-login-icon-link" href="/User/Profile" style="cursor:pointer; text-decoration:none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="#a6a6a6" class="bi bi-person" viewBox="0 0 16 16">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                                </svg>
+                                <p id="header-login-icon-text" class="wishlist-icon-text">Профиль</p>
+                            </a>
+                        }
+                        else
+                        {
+                            <a id="header-login-icon-link" href="/User/Login" style="cursor:pointer; text-decoration:none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="#a6a6a6" class="bi bi-person" viewBox="0 0 16 16">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                                </svg>
+                                <p id="header-login-icon-text" class="wishlist-icon-text">Войти</p>
+                            </a>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-header-right-gif">
+                <img id="express-delivery-gif" src="https://cdn.dynamicyield.com/api/8771345/images/c2317df98d3e__express.gif" alt="express delivery">
+            </div>
+        </div>
+    </header>
+    <div class="header-offcanvas-section-container">
+        <input type="hidden" id="header-offcanvas-action-type" value="hide" />
+        <div class="header-offcanvas-section-items">
+            <a href="#">
+                Товары для Нового Года
+            </a>
+        </div>
+        <div class="header-offcanvas-section-items">
+            <a href="/books">
+                Книги
+            </a>
+        </div>
+        <div class="header-offcanvas-section-items">
+            <a href="#">
+                Игрушки и развлечение
+            </a>
+        </div>
+        <div class="header-offcanvas-section-items">
+            <a href="#">
+                Активный отдых и спорт
+            </a>
+        </div>
+        <div class="header-offcanvas-section-items">
+            <a href="#">
+                Творчество, Fine Art
+            </a>
+        </div>
+        <div class="header-offcanvas-section-items">
+            <a href="#">
+                Школа, Канцелярия
+            </a>
+        </div>
+        <div class="header-offcanvas-section-items">
+            <a href="#">
+                Подарки, Сувениры, Life Style
+            </a>
+        </div>
+        <div class="header-offcanvas-section-items">
+            <a href="#">
+                Видеоигры и консоли
+            </a>
+        </div>
+        <div class="header-offcanvas-section-items">
+            <a href="#">
+                Vinyl и СD
+            </a>
+        </div>
+        <div class="header-offcanvas-section-items">
+            <a href="#">
+                Продукты и напитки
+            </a>
+        </div>
+        <div class="header-offcanvas-section-items">
+            <a href="#">
+                Наушники и аудиотехника
+            </a>
+        </div>
+        <div class="header-offcanvas-section-items">
+            <a href="#">
+                Товары для животных
+            </a>
+        </div>
+        <div class="header-offcanvas-section-items">
+            <a href="#">
+                Мама и малыш
+            </a>
+        </div>
+        <div class="header-offcanvas-section-items">
+            <a href="#">
+                Электроника
+            </a>
+        </div>
+    </div>
+
+    <!--Login Register Modal -->
+    
+
+    @RenderBody()
+
+
+    <footer>
+        <div class="footer-wrapper">
+            <div class="footer-wrapper-header">
+                <a href="/">Интернет-магазин товаров для развлечений "МЕЛОМАН"</a>
+            </div>
+            <div class="footer-wrapper-body">
+                <div class="footer-wrapper-col">
+                    <div class="footer-wrapper-col-header">
+                        <span>Покупателям</span>
+                    </div>
+                    <div class="footer-wrapper-col-items">
+                        <li>График работы магазинов</li>
+                        <li>Доставка</li>
+                        <li>Оплата</li>
+                        <li>Возврат товара</li>
+                        <li>Контакты</li>
+                        <li>Магазины</li>
+                        <li>Вопросы и ответы</li>
+                        <li>Договор публичной оферты</li>
+                    </div>
+                    <div class="footer-wrapper-col-header">
+                        <span>Сервисы</span>
+                    </div>
+                    <div class="footer-wrapper-col-items">
+                        <li>Бонусные карты</li>
+                        <br />
+                        <br />
+                        <br />
+                        <span>Все права защишены,</span><br />
+                        <span>MELOMAN 2021</span>
+                    </div>
+                </div>
+                <div class="footer-wrapper-col">
+                    <div class="footer-wrapper-col-header">
+                        <span>О Компании</span>
+                    </div>
+                    <div class="footer-wrapper-col-items">
+                        <li>История компании в цифрах</li>
+                        <li>История в фактах</li>
+                        <li>Наши подразделения</li>
+                        <li>Наши магазины</li>
+                        <li>Вакансии</li>
+                    </div>
+                    <div class="footer-wrapper-col-header">
+                        <span>Корпоративный блок</span>
+                    </div>
+                    <div class="footer-wrapper-col-items">
+                        <li>Контакты для прессы</li>
+                        <li>Социальная ответственность</li>
+                        <li>Аренда помещений</li>
+                        <li>Оптовым покупателям</li>
+                        <br />
+                        <br />
+                        <br />
+                        <img class="visa-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Visa_2021.svg/180px-Visa_2021.svg.png" />
+                        <img class="visa-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Maestro_logo.svg/1200px-Maestro_logo.svg.png" />
+                        <img class="visa-icon" src="data:image/png;base64,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" />
+                    </div>
+                </div>
+                <div class="footer-wrapper-col">
+                    <div class="footer-wrapper-col-header">
+                        <span>Наши проекты</span>
+                    </div>
+                    <div class="footer-wrapper-col-items">
+                        <li>Привези - товары из России на заказ</li>
+                        <li>Marwin.kz - интернет магазин товаров для детей</li>
+                        <li>Комфорт - товары для дома и ремонта</li>
+                        <li>Арсенал - торгово-развлекательный комплекс и кинотеатр</li>
+                    </div>
+                </div>
+                <div class="footer-wrapper-col">
+                    <div class="footer-wrapper-col-header">
+                        <span>МЕЛОМАН в соцсетях</span>
+                    </div>
+                    <div class="footer-wrapper-col-items">
+                        <svg style="margin-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                            <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                        </svg>
+                    </div>
+                    <div class="footer-wrapper-col-header">
+                        <span>Связаться с нами</span>
+                    </div>
+                    <div class="footer-wrapper-col-items">
+                        <svg style="margin-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0100d3" class="bi bi-telegram" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0100d3" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
+                        </svg>
+                    </div>
+                    <div class="footer-wrapper-col-header">
+                        <span>Скачайте обновленное приложение Бонусного клуба. Это бесплатно!</span>
+                    </div>
+                    <div class="footer-wrapper-col-items">
+                        <img style="height:50px;" src="https://simg.marwin.kz/media/wysiwyg/subscribe/app_store.svg" />
+                        <img style="height:50px;" src="https://simg.marwin.kz/media/wysiwyg/subscribe/google_play.svg" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="message position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <div class="rounded me-2 message-header"></div>
+                <strong class="me-auto">Message</strong>
+                <small></small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(".header-offcanvas-section-items").hide();
+            $("#loaderbody").hide();
+            $("body").show();
+            var isAuthenticated = $("#user-authentication-check").val();
+            if (isAuthenticated == "true") {
+                $("#header-login-icon-text").text("Профиль")
+            }
+            var imagesLoaded = 0;
+            // Count the total number of images on the page when the page has loaded.
+            var totalImages = $("img").length;
+
+            // After an image is loaded, add to the count, and if that count equals the
+            // total number of images, fire the allImagesLoaded() function.
+            $("img").on("load", function (event) {
+                imagesLoaded++;
+                if (imagesLoaded == totalImages) {
+                    allImagesLoaded();
+                }
+            });
+
+            function allImagesLoaded() {
+                console.log("ALL IMAGES LOADED");
+            }
+
+            
+        });
+        function openSideBar(x) {
+            x.classList.toggle("change");
+        }
+        function UserDoesNotExist() {
+            var toastLiveExample = document.getElementById('liveToast')
+            $(".toast-body").text("Пользователь не существует! Пожалуйста зарегистрируйтесь!");
+            var toast = new bootstrap.Toast(toastLiveExample)
+            toast.show()
+        }
+        $(".menu-icon").click(function () {
+            var actionType = $("#header-offcanvas-action-type").val();
+            if (actionType == "hide") {
+                $("#header-offcanvas-action-type").val("show");
+                $(".header-offcanvas-section-container").css('width', '360px');
+                $(".header-offcanvas-section-container").css('border-top', '1px solid #a6a6a6');
+                $(".header-offcanvas-section-items").show();
+            }
+            else {
+                $("#header-offcanvas-action-type").val("hide");
+                $(".header-offcanvas-section-container").css('width', '0px');
+                $(".header-offcanvas-section-items").hide();
+            }
+        })
+        $(".header-offcanvas-section-items").mouseover(function () {
+            $(this).addClass('background-orange');
+            $(".header-offcanvas-section-items a").mouseover(function () {
+                $(this).addClass('background-gray');
+            })
+
+        })
+        $(".header-offcanvas-section-items").mouseout(function () {
+            $(".header-offcanvas-section-items a").mouseout(function () {
+                $(this).removeClass('background-gray');
+            })
+            $(this).removeClass('background-orange');
+
+        })
+
+       
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <link href="~/css/site.css" rel="stylesheet" />
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

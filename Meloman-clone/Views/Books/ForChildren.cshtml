@@ -1,0 +1,278 @@
+﻿@model IEnumerable<Meloman_clone.Models.Book>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href="~/css/category_pages.css" rel="stylesheet" />
+<script src="~/js/for_children.js"></script>
+
+
+<div class="book-list-wrapper">
+    <div class="book-list-side-bar">
+        <div class="price-range-wrapper">
+            <div class="side-bar-header-group">
+                <span>Цена</span>
+            </div>
+            <div class="price-range-controller">
+                <div class="price-range-controller-item">
+                    <span>от</span>
+                </div>
+                <div class="price-range-controller-item">
+                    <input type="text" id="price-range-from-input" />
+                </div>
+                <div class="price-range-controller-item">
+                    <span>до</span>
+                </div>
+                <div class="price-range-controller-item">
+                    <input type="text" id="price-range-to-input" />
+                </div>
+                <div class="price-range-controller-item">
+                    <span>
+                        <img style="width:10px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Tenge_symbol.jpg/144px-Tenge_symbol.jpg" />
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="books-author-list-wrapper">
+            <div class="side-bar-header-group">
+                <span>Автор</span>
+            </div>
+            <div class="books-author-search">
+                <input class="search-input-group" type="text" id="books-author-search-input" placeholder="Поиск" />
+            </div>
+            <div id="books-author-list-id" class="books-author-list">
+                <!-- Data from backend using jQuery -->
+            </div>
+        </div>
+        <div class="books-author-list-wrapper">
+            <div class="side-bar-header-group">
+                <span>Возраст</span>
+            </div>
+            <div class="books-author-list">
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="ageCheckboxHandler(this)" value="0+" />
+                    <span>0+</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="ageCheckboxHandler(this)" value="6+" />
+                    <span>6+</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="ageCheckboxHandler(this)" value="12+" />
+                    <span>12+</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="ageCheckboxHandler(this)" value="14+" />
+                    <span>14+</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="ageCheckboxHandler(this)" value="16+" />
+                    <span>16+</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="ageCheckboxHandler(this)" value="18+" />
+                    <span>18+</span>
+                </div>
+            </div>
+        </div>
+        <div class="books-author-list-wrapper">
+            <div class="side-bar-header-group">
+                <span>Год издания</span>
+            </div>
+            <div class="books-author-search">
+                <input class="search-input-group" type="text" id="books-year-search-input" placeholder="Поиск" />
+            </div>
+            <div class="books-author-list">
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2022" />
+                    <span>2022</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2021" />
+                    <span>2021</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2020" />
+                    <span>2020</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2019" />
+                    <span>2019</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2018" />
+                    <span>2018</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2017" />
+                    <span>2017</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2016" />
+                    <span>2016</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2015" />
+                    <span>2015</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="yearCheckboxHandler(this)" value="2014" />
+                    <span>2014</span>
+                </div>
+            </div>
+        </div>
+        <div class="books-author-list-wrapper">
+            <div class="side-bar-header-group">
+                <span>Переплет</span>
+            </div>
+            <div class="books-author-list">
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="coverCheckboxHandler(this)" value="Мягкая обложка" />
+                    <span>Мягкая обложка</span>
+                </div>
+                <div class="books-author-list-item">
+                    <input type="checkbox" onchange="coverCheckboxHandler(this)" value="Твердый переплет" />
+                    <span>Твердый переплет</span>
+                </div>
+            </div>
+        </div>
+        <div class="books-author-list-wrapper">
+            <div class="side-bar-header-group">
+                <span>Жанр</span>
+            </div>
+            <div class="books-author-search">
+                <input class="search-input-group" type="text" id="books-genre-search-input" placeholder="Поиск" />
+            </div>
+            <div id="books-genre-list-id" class="books-author-list">
+                <!-- Data from backend using jQuery -->
+            </div>
+        </div>
+    </div>
+    <div class="book-list-main-section">
+        <div class="books-breadcrumb-wrapper">
+            <span>
+                Главная
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </span>
+            <span>
+                Книги
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </span>
+            <span style="font-weight: bold;">
+                Детская литература
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </span>
+        </div>
+        <div class="book-list-main-section-header">
+            <span>Детская литература</span>
+        </div>
+        <div class="book-list-main-section-sort">
+            <span>Сортировка:</span>
+            <a class="book-list-main-section-sort-links font-bold" id="sort-selling-hits">Хиты продаж</a>
+            <a class="book-list-main-section-sort-links" id="sort-news">Новинки</a>
+            <input id="sort-price-type" type="hidden" value="increasing" />
+            <a class="book-list-main-section-sort-links" id="sort-prices">
+                Цены
+                <div class="sort-price-options">
+                    <div class="sort-price-option-item" id="sort-by-decreasing">По убыванию</div>
+                    <div class="sort-price-option-item" id="sort-by-increasing">По возрастанию</div>
+                </div>
+            </a>
+            <a class="book-list-main-section-sort-links" id="sort-discount">
+                По размеру скидки
+                <div class="sort-discount-options">
+                    <div class="sort-discount-option-item" id="sort-discount-by-decreasing">По убыванию</div>
+                    <div class="sort-discount-option-item" id="sort-discount-by-increasing">По возрастанию</div>
+                </div>
+            </a>
+            <a></a>
+        </div>
+        <div class="book-list-container">
+            @foreach (var book in Model)
+            {
+                <div class="item-block">
+                    <div class="book-container">
+                        <div class="img-wrapper">
+                            <input type="hidden" value="@book.BookId" />
+                            <img id="img-@book.BookId" src="" />
+                            <div class="add-towishlist-and-search-btn">
+                                <a>
+                                    <div class="add-to-wishlist">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="30" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                        </svg>
+                                    </div>
+                                </a>
+                                <a>
+                                    <div class="details-modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="30" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="book-name-wrapper" id="@book.BookId" onclick="redirectToDetails(this)">
+                            <input type="hidden" value="@book.BookId" />
+                            <span id="">@book.Author</span>: <span id="book-name-1">@book.Name</span>
+                        </div>
+                        <div class="discount-wrapper">
+                            <div id="discount-block-@book.BookId" class="discount-block">
+
+                            </div>
+
+                            <div class="book-location">
+                                На складе
+                            </div>
+                        </div>
+                        <div class="bottom-wrapper">
+                            <div class="price-wrapper">
+                                @if (book.OldPrice != 0)
+                                {
+                                    <div class="item-block-old-price" id="old-price-1">
+                                        <span id="old-price-1">
+                                            @book.OldPrice
+                                        </span>
+                                        <img style="width:10px; height:17px; padding-bottom:5px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Tenge_symbol.jpg/144px-Tenge_symbol.jpg" />
+                                    </div>
+                                }
+                                <div class="item-block-price">
+                                    <span id="price-1">@book.Price</span>
+                                    <img style="width:12px; height:20px; padding-bottom:5px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Tenge_symbol.jpg/144px-Tenge_symbol.jpg" />
+                                </div>
+                            </div>
+                            <div class="tocart-icon" id="tocart-icon-@book.BookId" onclick="addToBasketList(this)">
+                                <input class="to-cart-input" type="hidden" value="@book.BookId" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="31" fill="white" class="bi bi-cart" viewBox="0 0 16 16">
+                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<div class="message position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <div class="rounded me-2 message-header" style="background-color:green;"></div>
+            <strong class="me-auto">meloman-clone.kz</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+
+        </div>
+    </div>
+</div>

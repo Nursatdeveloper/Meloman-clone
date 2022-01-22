@@ -1,0 +1,2253 @@
+﻿@model Meloman_clone.Models.Book
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+
+@{
+    ViewData["Title"] = $"{Model.Author}:{Model.Name}";
+    var cookie = Context.Request.Cookies.FirstOrDefault(e => e.Key == "MelomanAuthCookie");
+
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="~/js/review.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+<input type="hidden" id="id-input" value="@Model.BookId" />
+
+<div class="details-container">
+    <div class="details-header">
+        <div class="route-wrapper">
+            <nav style="--bs-breadcrumb-divider: " aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Главная</a><p class="arrow">></p></li>
+                    <li class="breadcrumb-item"><a href="/books">Книги</a><p class="arrow">></p></li>
+                    <li class="breadcrumb-item"><a href="#">@Model.Category</a><p class="arrow">></p></li>
+                    <li class="breadcrumb-item"><a href="#">@Model.Genre</a></li>
+                </ol>
+            </nav>
+        </div>
+        <div class="book-name">
+            @Html.DisplayFor(model => model.Author): @Html.DisplayFor(model => model.Name)
+        </div>
+        <div class="header-icons">
+            <div class="row row-cols-auto row-header-icons">
+                <div class="col col-header code">код: @Model.BookId</div>
+                <div class="col col-header in-stock">
+
+                    @if (Model.Amount > 0)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="#a6a6a6" class="bi bi-check" viewBox="0 0 16 16">
+                            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                        </svg>
+                        <span>есть в наличии</span>
+                    }
+                    else
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="#a6a6a6" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
+                        <span>нет в наличии</span>
+                    }
+
+                </div>
+
+                <div class="col col-header to-wishlist">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" fill="#a6a6a6" class="bi bi-heart" viewBox="0 0 16 16">
+                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                    </svg>
+                    <a href="#" id="add-to-wishlist">в избранное</a>
+                </div>
+                <div class="col col-header review-progressbar">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        <a href="#">отзывы (<span id="people-rated-number"></span>)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  details-main">
+        <div class="col left-photo-gallery-wrapper">
+            <div class="img-container border-visible">
+                <img id="side-img-1" src="" />
+            </div>
+            <div class="img-container2">
+                <img id="side-img-2" src="" />
+            </div>
+        </div>
+        <div class="col big-img-wrapper">
+            <div class="big-img">
+                <img id="main-img" src="" />
+            </div>
+            <div class="delivery-icon">
+                <img id="express-delivery" src="https://simg.marwin.kz/media/astrio_specialproducts/labels/almaty_2_.svg" />
+            </div>
+        </div>
+        <div class="col book-info-wrapper">
+            <div class="this-book-price-wrapper">
+                <span id="price">@Model.Price</span> T
+                @if (Model.OldPrice != 0)
+                {
+                    <span id="old-price">@Model.OldPrice T</span>
+                }
+            </div>
+            <div class="add-to-shoppinglist">
+                <button id="add-btn">Добавить в корзину</button>
+            </div>
+            @if (cookie.Key == "MelomanAuthCookie")
+            {
+                <div class="add-to-shoppinglist">
+                    <button type="button" id="buy-btn" data-bs-toggle="modal" data-bs-target="#orderFormModal">Купить в один клик</button>
+                </div>
+            }
+            else
+            {
+                <div class="add-to-shoppinglist">
+                    <button type="button" id="buy-btn" onclick="redirectToLogin()">Купить в один клик</button>
+                </div>
+            }
+
+            @if (Model.Discount != 0)
+            {
+                <div class="product-discount">
+                    <span>Скидка на товар</span><span>@Model.Discount %</span>
+                </div>
+                <div class="going-to-save">
+                    <span>Вы экономите</span><span id="money-going-to-save"></span>
+                </div>
+            }
+            <div class="in-stock-links">
+                <div class="book-info-link-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#999999" class="bi bi-question-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.475 5.458c-.284 0-.514-.237-.47-.517C4.28 3.24 5.576 2 7.825 2c2.25 0 3.767 1.36 3.767 3.215 0 1.344-.665 2.288-1.79 2.973-1.1.659-1.414 1.118-1.414 2.01v.03a.5.5 0 0 1-.5.5h-.77a.5.5 0 0 1-.5-.495l-.003-.2c-.043-1.221.477-2.001 1.645-2.712 1.03-.632 1.397-1.135 1.397-2.028 0-.979-.758-1.698-1.926-1.698-1.009 0-1.71.529-1.938 1.402-.066.254-.278.461-.54.461h-.777ZM7.496 14c.622 0 1.095-.474 1.095-1.09 0-.618-.473-1.092-1.095-1.092-.606 0-1.087.474-1.087 1.091S6.89 14 7.496 14Z" />
+                    </svg>
+                    <a id="in-stock-almaty" href="#">Проверить наличие в г.Алматы</a>
+                </div>
+                <div class="book-info-link-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#999999" class="bi bi-truck" viewBox="0 0 16 16">
+                        <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                    </svg>
+                    <a id="delivery-conditions" href="#">Условия доставки</a>
+                </div>
+            </div>
+            <div class="additional-info">
+                <div class="additional-info-member">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z" />
+                        <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z" />
+                    </svg>
+                    <span id="save-payment-text">Безопасная оплата</span>
+                </div>
+                <div class="additional-info-member">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z" />
+                    </svg>
+                    <span id="money-return-text">Возврат 14 дней</span>
+                </div>
+                <div class="additional-info-member">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                        <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                        <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" />
+                    </svg>
+                    <span id="monthly-payment-text">Доступна рассрочка на 3 месяца</span>
+                </div>
+            </div>
+            <div class="author-wrapper">
+                <img id="author-img" src="" />
+                <a id="author-name"></a>
+            </div>
+
+        </div>
+    </div>
+    <div class="this-genre-books-wrapper">
+        <div class="this-genre-books-header">
+            <span>Книги этого жанра</span>
+        </div>
+
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="swiper-button-prev swiper-button-black" style="position:static; margin-left:5px;"></div>
+                    <div class="item-block-wrapper">
+                        <div id="book-item-1" class="item-block">
+                            <div id="this-genre-book-hidden-id-1" class="book-container">
+                                <div class="img-wrapper">
+                                    <img id="img-1" src="" />
+                                    <div class="add-towishlist-and-search-btn">
+                                        <a>
+                                            <div class="this-genre-swiper-add-to-wishlist">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                        <a>
+                                            <div class="this-genre-swiper-details-modal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="book-name-wrapper" id="book-name-wrapper-1">
+                                    <span id="author-name-1"></span> <span id="book-name-1"></span>
+                                </div>
+                                <div class="discount-wrapper">
+                                    <div id="discount-block-1" class="discount-block">
+
+                                    </div>
+                                    <div class="book-location">
+                                        На складе
+                                    </div>
+                                </div>
+                                <div class="bottom-wrapper">
+                                    <div class="price-wrapper">
+                                        <div class="item-block-old-price" id="old-price-1">
+
+                                        </div>
+                                        <div class="item-block-price" id="price-1">
+
+                                        </div>
+                                    </div>
+                                    <div class="tocart-icon" id="tocart-1" onclick="addToCart(this)">
+                                        <input id="to-cart-input-1" type="hidden" value="" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-cart" viewBox="0 0 16 16">
+                                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="book-item-2" class="item-block">
+                            <div id="this-genre-book-hidden-id-2" class="book-container">
+                                <div class="img-wrapper">
+                                    <img id="img-2" src="" />
+                                    <div class="add-towishlist-and-search-btn">
+                                        <a>
+                                            <div class="this-genre-swiper-add-to-wishlist">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                        <a>
+                                            <div class="this-genre-swiper-details-modal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="book-name-wrapper" id="book-name-wrapper-2">
+                                    <span id="author-name-2"></span> <span id="book-name-2"></span>
+                                </div>
+                                <div class="discount-wrapper">
+                                    <div id="discount-block-2" class="discount-block">
+
+                                    </div>
+                                    <div class="book-location">
+                                        На складе
+                                    </div>
+                                </div>
+                                <div class="bottom-wrapper">
+                                    <div class="price-wrapper">
+                                        <div class="item-block-old-price" id="old-price-2">
+
+                                        </div>
+                                        <div class="item-block-price" id="price-2">
+
+                                        </div>
+                                    </div>
+                                    <div class="tocart-icon" id="tocart-2" onclick="addToCart(this)">
+                                        <input id="to-cart-input-2" type="hidden" value="" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-cart" viewBox="0 0 16 16">
+                                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="book-item-3" class="item-block">
+                            <div id="this-genre-book-hidden-id-3" class="book-container">
+                                <div class="img-wrapper">
+                                    <img id="img-3" src="" />
+                                    <div class="add-towishlist-and-search-btn">
+                                        <a>
+                                            <div class="this-genre-swiper-add-to-wishlist">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                        <a>
+                                            <div class="this-genre-swiper-details-modal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="book-name-wrapper" id="book-name-wrapper-3">
+                                    <span id="author-name-3"></span> <span id="book-name-3"></span>
+                                </div>
+                                <div class="discount-wrapper">
+                                    <div id="discount-block-3" class="discount-block">
+
+                                    </div>
+                                    <div class="book-location">
+                                        На складе
+                                    </div>
+                                </div>
+                                <div class="bottom-wrapper">
+                                    <div class="price-wrapper">
+                                        <div class="item-block-old-price" id="old-price-3">
+
+                                        </div>
+                                        <div class="item-block-price" id="price-3">
+
+                                        </div>
+                                    </div>
+                                    <div class="tocart-icon" id="tocart-3" onclick="addToCart(this)">
+                                        <input id="to-cart-input-3" type="hidden" value="" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-cart" viewBox="0 0 16 16">
+                                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="book-item-4" class="item-block">
+                            <div id="this-genre-book-hidden-id-4" class="book-container">
+                                <div class="img-wrapper">
+                                    <img id="img-4" src="" />
+                                    <div class="add-towishlist-and-search-btn">
+                                        <a>
+                                            <div class="this-genre-swiper-add-to-wishlist">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                        <a>
+                                            <div class="this-genre-swiper-details-modal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="book-name-wrapper" id="book-name-wrapper-4">
+                                    <span id="author-name-4"></span> <span id="book-name-4"></span>
+                                </div>
+                                <div class="discount-wrapper">
+                                    <div id="discount-block-4" class="discount-block">
+
+                                    </div>
+                                    <div class="book-location">
+                                        На складе
+                                    </div>
+                                </div>
+                                <div class="bottom-wrapper">
+                                    <div class="price-wrapper">
+                                        <div class="item-block-old-price" id="old-price-4">
+
+                                        </div>
+                                        <div class="item-block-price" id="price-4">
+
+                                        </div>
+                                    </div>
+                                    <div class="tocart-icon" id="tocart-4" onclick="addToCart(this)">
+                                        <input id="to-cart-input-4" type="hidden" value="" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-cart" viewBox="0 0 16 16">
+                                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next swiper-button-black" style="position:static; margin-right:5px; margin-top:140px;"></div>
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="swiper-slide">
+                    <div class="swiper-button-prev swiper-button-black" style="position:static; margin-left:5px;"></div>
+                    <div class="item-block-wrapper">
+                        <div id="book-item-5" class="item-block">
+                            <div id="5" class="book-container">
+                                <div class="img-wrapper">
+                                    <img id="img-5" src="" />
+                                    <div class="add-towishlist-and-search-btn">
+                                        <a>
+                                            <div class="this-genre-swiper-add-to-wishlist">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                        <a>
+                                            <div class="this-genre-swiper-details-modal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="book-name-wrapper" id="book-name-wrapper-5">
+                                    <span id="author-name-5"></span> <span id="book-name-5"></span>
+                                </div>
+                                <div class="discount-wrapper">
+                                    <div id="discount-block-5" class="discount-block">
+
+                                    </div>
+                                    <div class="book-location">
+                                        На складе
+                                    </div>
+                                </div>
+                                <div class="bottom-wrapper">
+                                    <div class="price-wrapper">
+                                        <div class="item-block-old-price" id="old-price-5">
+
+                                        </div>
+                                        <div class="item-block-price" id="price-5">
+
+                                        </div>
+                                    </div>
+                                    <div class="tocart-icon" id="tocart-5" onclick="addToCart(this)">
+                                        <input id="to-cart-input-5" type="hidden" value="" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-cart" viewBox="0 0 16 16">
+                                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="book-item-6" class="item-block">
+                            <div id="6" class="book-container">
+                                <div class="img-wrapper">
+                                    <img id="img-6" src="" />
+                                    <div class="add-towishlist-and-search-btn">
+                                        <a>
+                                            <div class="this-genre-swiper-add-to-wishlist">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                        <a>
+                                            <div class="this-genre-swiper-details-modal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="book-name-wrapper" id="book-name-wrapper-6">
+                                    <span id="author-name-6"></span> <span id="book-name-6"></span>
+                                </div>
+                                <div class="discount-wrapper">
+                                    <div id="discount-block-6" class="discount-block">
+
+                                    </div>
+                                    <div class="book-location">
+                                        На складе
+                                    </div>
+                                </div>
+                                <div class="bottom-wrapper">
+                                    <div class="price-wrapper">
+                                        <div class="item-block-old-price" id="old-price-6">
+
+                                        </div>
+                                        <div class="item-block-price" id="price-6">
+
+                                        </div>
+                                    </div>
+                                    <div class="tocart-icon" id="tocart-6" onclick="addToCart(this)">
+                                        <input id="to-cart-input-6" type="hidden" value="" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-cart" viewBox="0 0 16 16">
+                                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="book-item-7" class="item-block">
+                            <div id="7" class="book-container">
+                                <div class="img-wrapper">
+                                    <img id="img-7" src="" />
+                                    <div class="add-towishlist-and-search-btn">
+                                        <a>
+                                            <div class="this-genre-swiper-add-to-wishlist">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                        <a>
+                                            <div class="this-genre-swiper-details-modal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="book-name-wrapper" id="book-name-wrapper-7">
+                                    <span id="author-name-7"></span> <span id="book-name-7"></span>
+                                </div>
+                                <div id="discount-block-7" class="discount-wrapper">
+                                    <div class="discount-block">
+
+                                    </div>
+                                    <div class="book-location">
+                                        На складе
+                                    </div>
+                                </div>
+                                <div class="bottom-wrapper">
+                                    <div class="price-wrapper">
+                                        <div class="item-block-old-price" id="old-price-7">
+
+                                        </div>
+                                        <div class="item-block-price" id="price-7">
+
+                                        </div>
+                                    </div>
+                                    <div class="tocart-icon" id="tocart-7" onclick="addToCart(this)">
+                                        <input id="to-cart-input-7" type="hidden" value="" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-cart" viewBox="0 0 16 16">
+                                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="book-item-8" class="item-block">
+                            <div class="book-container">
+
+                                <div class="img-wrapper">
+                                    <img id="img-8" src="" />
+                                    <div class="add-towishlist-and-search-btn">
+                                        <a>
+                                            <div class="this-genre-swiper-add-to-wishlist">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-heart" viewBox="0 0 16 16">
+                                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                        <a>
+                                            <div class="this-genre-swiper-details-modal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="book-name-wrapper" id="book-name-wrapper-8">
+                                    <span id="author-name-8"></span> <span id="book-name-8"></span>
+                                </div>
+                                <div class="discount-wrapper">
+                                    <div id="discount-block-8" class="discount-block">
+
+                                    </div>
+                                    <div class="book-location">
+                                        На складе
+                                    </div>
+                                </div>
+                                <div class="bottom-wrapper">
+                                    <div class="price-wrapper">
+                                        <div class="item-block-old-price" id="old-price-8">
+
+                                        </div>
+                                        <div class="item-block-price" id="price-8">
+
+                                        </div>
+                                    </div>
+                                    <div class="tocart-icon" id="tocart-8" onclick="addToCart(this)">
+                                        <input id="to-cart-input-8" type="hidden" value="" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-cart" viewBox="0 0 16 16">
+                                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next swiper-button-black" style="position:static; margin-right:5px;"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="book-full-info-container">
+        <div class="book-description-wrapper">
+            <div class="book-description-container linear-gradient-opacity">
+                <div class="book-description-header">
+                    <span id="book-description-header-id">
+                        Описание
+                    </span>
+                </div>
+                <div class="book-description-body">
+                    <p id="book-description-body-id">
+                    </p>
+                </div>
+                <div class="book-description-footer">
+                    <label>
+                        Количество страниц:
+                        <span id="book-description-footer-page-number">@Model.PageAmount</span>
+                    </label>
+                    <br />
+                    <label>
+                        Размер:
+                        <span id="book-description-footer-book-size">
+                            @Model.Size
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="book-full-info-container-bottom-left">
+                <div class="book-description-toggle-button-wrapper">
+                    <input id="description-toggle-button-action" type="hidden" value="hide" />
+                    <a id="book-description-toggle-button">
+                        Развернуть описание
+                    </a>
+                    <span id="description-show-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0100d3" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                        </svg>
+                    </span>
+                    <span id="description-hide-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0100d3" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="book-characteristics-wrapper">
+            <div class="book-characteristics-container linear-gradient-opacity">
+                <div class="book-description-header">
+                    <span id="book-characteristics-header-id">
+                        Характеристики
+                    </span>
+                </div>
+                <div class="book-characteristics-body">
+                    <div class="book-characteristics-body-left">
+                        <li>Автор</li>
+                        <li>ISBN</li>
+                        <li>Жанр</li>
+                        <li>Издательство</li>
+                        <li>Возраст</li>
+                        <li>Год издания</li>
+                        <li>Переплет</li>
+                        <li>Количество страниц</li>
+                        <li>Вес, г</li>
+                        <li>Размер, мм</li>
+                        <li>Язык</li>
+                    </div>
+                    <div class="book-characteristics-body-right">
+                        <li><a href="#">@Model.Author</a></li>
+                        <li>@Model.Isbn</li>
+                        <li>@Model.Category</li>
+                        <li><a href="#">@Model.Publisher</a></li>
+                        <li>@Model.SuggestedAge</li>
+                        <li>@Model.PublishedYear</li>
+                        <li>@Model.Cover</li>
+                        <li>@Model.PageAmount</li>
+                        <li>@Model.Weight</li>
+                        <li>@Model.Size</li>
+                        <li>@Model.Language</li>
+                    </div>
+                </div>
+            </div>
+            <div class="book-full-info-container-bottom-right">
+                <div class="book-description-toggle-button-wrapper">
+                    <input id="characteristics-toggle-button-action" type="hidden" value="hide" />
+                    <a id="book-characteristics-toggle-button">
+                        Развернуть характеристики
+                    </a>
+                    <span id="characteristics-show-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0100d3" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                        </svg>
+                    </span>
+                    <span id="characteristics-hide-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0100d3" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="review-container">
+        <input id="product-review-id" type="hidden" value="@Model.BookId" />
+        <div class="review-header">
+            <div class="review-header-group">
+                <span id="review-text-container">Отзывы</span>
+            </div>
+            <div class="review-header-group">
+                <div id="review-counter"></div>
+                <div></div>
+            </div>
+        </div>
+        <div class="review-body">
+            <div class="review-list review-body-group">
+                <div class="review-list-empty">
+                    <span>Пока нет отзывов! Будьте первым!</span>
+                </div>
+
+            </div>
+            <div class="leave-review review-body-group">
+                <div class="leave-review-form">
+                    <input id="review-form-hidden-input" type="hidden" value="hide" />
+                    <input id="review-product-type" type="hidden" value="Book" />
+                    <input id="reviews-received" type="hidden" value="false" />
+                    <div class="review-form-header">
+                        <span>Новый отзыв</span>
+                        <svg id="close-form-btn" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+                            <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+                        </svg>
+                    </div>
+                    <div class="rate-the-product">
+                        <input id="filled-star-count" type="hidden" value="" />
+                        <span>Оцените товар</span><br /><br />
+                        <span id="star-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="30" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                            </svg>
+                        </span>
+                        <span id="star-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="30" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                            </svg>
+                        </span>
+                        <span id="star-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="30" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                            </svg>
+                        </span>
+                        <span id="star-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="30" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                            </svg>
+                        </span>
+                        <span id="star-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="30" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="product-rating-group">
+                        <span>Достоинства</span><br />
+                        <textarea id="advantages" placeholder="Напишите, что вам понравилось..."></textarea>
+                    </div>
+                    <div class="product-rating-group">
+                        <span>Недостатки</span><br />
+                        <textarea id="disadvantages" placeholder="Напишите, что вам не понравилось..."></textarea>
+                    </div>
+                    <div class="product-rating-group">
+                        <span>Отзыв</span><br />
+                        <textarea id="general-review" placeholder="Напишите ваш отзыв..."></textarea>
+                    </div>
+                </div>
+                <div id="leave-review-btn">
+                    <span id="leave-review-btn-text">Напишите отзыв</span>
+                </div>
+                <div class="product-review-stars">
+                    <div class="product-review-stars-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                    </div>
+                    <span class="product-average-rating"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="this-author-books">
+
+    </div>
+    <input id="front-photo-store" type="hidden" value="" />
+    <input id="back-photo-store" type="hidden" value="" />
+    <input id="genre-store" type="hidden" value="" />
+</div>
+<div class="modal fade" id="orderFormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="width: 100%">
+            <div class="modal-body" style="width: 100%">
+                <div class="order-form-wrapper">
+                    <div class="order-form-header">
+                        <h3>Оформить заказ</h3>
+                        <button type="button" class="btn-close" id="order-form-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="order-form-body">
+                        <div class="order-form-col">
+                            <div class="order-from-row">
+                                <span class="row-title">Получатель</span>
+                                <div class="receiver-information">
+                                    <div class="receiver-info-item">
+                                        <div class="receiver-info-label">
+                                            <label>ТЕЛЕФОННЫЙ НОМЕР</label>
+                                        </div>
+                                        <div class="receiver-info-required">
+                                            <label>ОБЯЗАТЕЛЬНО</label>
+                                        </div>
+                                        <div class="receiver-info-input">
+                                            <input type='text' id="receiver-tel" />
+                                        </div>
+                                    </div>
+                                    <div class="receiver-info-item">
+                                        <div class="receiver-info-label">
+                                            <label>ИМЯ</label>
+                                        </div>
+                                        <div class="receiver-info-required">
+                                            <label>ОБЯЗАТЕЛЬНО</label>
+                                        </div>
+                                        <div class="receiver-info-input">
+                                            <input type='text' id="receiver-name" />
+                                        </div>
+                                    </div>
+                                    <div class="receiver-info-item">
+                                        <div class="receiver-info-label">
+                                            <label>ЭЛЕКТРОННАЯ ПОЧТА</label>
+                                        </div>
+                                        <div class="receiver-info-required">
+                                            <label style="color: #4d4d4d;">НЕОБЯЗАТЕЛЬНО</label>
+                                        </div>
+                                        <div class="receiver-info-input">
+                                            <input type='text' id="receiver-email" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-from-row">
+                                <span class="row-title">Регион доставки</span>
+                                <select id="city-selection">
+                                    <option>Выберите регион</option>
+                                    <option value="Nursultan">Нур-Султан</option>
+                                    <option value="Almaty">Алматы</option>
+                                    <option value="Shymkent">Шымкент</option>
+                                    <option value="Taraz">Тараз</option>
+                                    <option value="Kyzylorda">Кызылорда</option>
+                                    <option value="Turkestan">Туркестан</option>
+                                    <option value="Semey">Семей</option>
+                                    <option value="Oskemen">Оскемен</option>
+                                    <option value="Taldykorgan">Талдыкорган</option>
+                                </select>
+
+                                <div id="delivery-method-container">
+                                    <div class="delivery-method-banner" id="delivery-method-banner-1">
+                                        <input type="radio" name="delivery-method" id="deliver-to-shop" value="shop">
+                                        <div>
+                                            <span id="deliver-to-shop-span-1">Бесплатная доставка в магазин</span>
+                                            <br />
+                                            <span id="deliver-to-shop-span-2">Бесплатно доставим товар в удобный магазин</span>
+                                        </div>
+                                    </div>
+                                    <div class="delivery-method-banner" id="delivery-method-banner-2">
+                                        <input type="radio" name="delivery-method" id="deliver-to-home" value="home">
+                                        <div>
+                                            <span id="deliver-to-home-span-1">Курьером в руки</span>
+                                            <br />
+                                            <span id="deliver-to-home-span-2">Доставим по указанному адресу</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-from-row" id='home-address-form'>
+                                <span class="row-title">Ваш адрес</span>
+                                <div class="receiver-information">
+                                    <div class="receiver-info-item">
+
+                                        <div class="receiver-info-input">
+                                            <input type='text' placeholder="УЛИЦА" id="delivery-street" />
+                                        </div>
+                                    </div>
+                                    <div class="receiver-info-item">
+                                        <div class="receiver-info-input">
+                                            <input type='text' placeholder="ДОМ" id="delivery-house" />
+                                        </div>
+                                    </div>
+                                    <div class="receiver-info-item">
+                                        <div class="receiver-info-input">
+                                            <input type='text' placeholder="КВАРТИРА / ОФИС" id="delivery-office" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-from-row" id='shop-address-form'>
+                                <span class="row-title">Адрес магазина</span>
+                                <div>
+                                    <select id="shop-address-select">
+                                        <option>Выберите адрес магазина</option>
+                                    </select>
+                                </div>
+                                <div class="alert alert-danger" id="no-delivery" role="alert">
+                                    К сожалению доставка не работает в вашем городе!
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+
+                            </div>
+                            <div class="order-from-row">
+                                <div class="want-express-banner">
+                                    <input type='hidden' id="want-express-hidden-input" value="want" />
+                                    <div class="want-express-icon-container">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                                        </svg>
+                                    </div>
+                                    <div class="want-express-text-container" style="margin-left:5px;">
+                                        <span id="want-express-span-1">Хочу экспресс</span><br />
+                                        <span id="want-express-span-2">Вернуть экспресс доставку</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-from-row">
+                                <span class="row-title">Комментарий к заказу</span>
+                                <div id="comments-textarea-wrapper">
+                                    <textarea id="comments-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="order-from-row" style="margin-top:29px;">
+                                <span class="row-title">Оплата</span>
+                                <div id="payment-method-wrapper">
+                                    <div id="pay-on-delivery">
+                                        <input type="radio" name="payment-method" id="pay-on-delivery-radio" />
+                                        <span class="payment-method-span">При получении</span>
+                                    </div>
+                                    <div id="pay-online">
+                                        <input type="radio" name="payment-method" id="pay-online-radio" />
+                                        <span class="payment-method-span">Онлайн банковской картой</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-from-row">
+                                <div id="payment-information-container">
+
+                                </div>
+                            </div>
+                            <div class="order-from-row">
+                                <div id='payment-summary-container'>
+                                    <div class="payment-summary-row">
+                                        <div class="payment-summary-item">
+                                            <span>Товары</span>
+                                        </div>
+                                        @if (Model.OldPrice == 0)
+                                        {
+                                            <div class="payment-summary-item">
+                                                <span id="first-price" style="font-size:15px;">@Model.Price</span>
+                                                тг
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="payment-summary-item">
+                                                <span id="first-price" style="font-size:15px;">@Model.OldPrice</span>
+                                                тг
+                                            </div>
+                                        }
+
+                                    </div>
+                                    <div class="payment-summary-row">
+                                        <div class="payment-summary-item">
+                                            <span>Скидка</span>
+                                        </div>
+                                        <div class="payment-summary-item color-green">
+                                            <span id="payment-summary-discount">@Model.Discount</span>%
+                                        </div>
+                                    </div>
+                                    <div class="payment-summary-row">
+                                        <div class="payment-summary-item">
+                                            <span>Доставка</span>
+                                        </div>
+                                        <div class="payment-summary-item">
+                                            <span style="font-size:15px;">0</span>
+                                            тг
+                                        </div>
+                                    </div>
+                                    <div class="payment-summary-row" style="border-top:1px solid #ccc; margin-top:10px;padding-top:10px;">
+                                        <div class="payment-summary-item">
+                                            <span style="font-size:17px;">К оплате</span>
+                                        </div>
+                                        <div class="payment-summary-item">
+                                            <span id="final-price" style="font-size:15px;">@Model.Price</span>
+                                            тг
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-from-row">
+                                <button type="button" id="order-form-submit-btn" onclick="processOrder()" data-bs-dismiss="modal" aria-label="Close">ПОДТВЕРДИТЬ ЗАКАЗ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="message position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <div class="rounded me-2 message-header" style="background-color:green;"></div>
+            <strong class="me-auto">meloman-clone.kz</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+
+        </div>
+    </div>
+</div>
+<script src="~/js/review.js"></script>
+<script src="~/js/details.js"></script>
+
+<!--Message styles-->
+<style>
+    .message {
+        position: absolute;
+        top: 100px;
+    }
+
+    .message-header {
+        width: 15px;
+        height: 15px;
+        background-color: green;
+        border-radius: 3px;
+    }
+</style>
+
+<style>
+    #no-delivery {
+        margin-left: 10px;
+        font-size: 12px;
+    }
+
+    .delivery-method-banner input {
+        margin: 5px;
+    }
+
+    #order-form-submit-btn {
+        margin-bottom: 20px;
+    }
+
+    #order-form-modal-close {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+    }
+
+    #orderFormModal {
+        width: 100%;
+    }
+
+    .order-form-wrapper {
+        width: 100%;
+        border: 1px solid #ccc;
+        font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+        color: #4d4d4d;
+    }
+
+    .order-form-header {
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+
+    .order-form-body {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .order-form-col {
+        width: 100%;
+    }
+
+    .order-from-row {
+        padding-left: 30px;
+    }
+
+    .row-title {
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .receiver-information {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+        width: 99%;
+    }
+
+    .receiver-info-item {
+        width: 33%;
+    }
+
+    .receiver-info-label {
+        width: 100%;
+        font-size: 11px;
+        margin-bottom: 4px;
+    }
+
+    .receiver-info-required {
+        width: 100%;
+        font-size: 7px;
+        color: #ef5b36;
+        margin-top: 1px;
+        margin-bottom: 4px;
+    }
+
+    .receiver-info-input {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+        .receiver-info-input input {
+            height: 24px;
+            width: 95%;
+            border: 1px solid #d1d1d1;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+
+            .receiver-info-input input::placeholder {
+                padding-left: 10px;
+                font-size: 12px;
+                color: #ccc;
+            }
+
+            .receiver-info-input input:focus {
+                outline: none !important;
+                -webkit-box-shadow: 1px 5px 10px 2px rgba(34, 60, 80, 0.2);
+                -moz-box-shadow: 1px 5px 10px 2px rgba(34, 60, 80, 0.2);
+                box-shadow: 1px 5px 10px 2px rgba(34, 60, 80, 0.2);
+            }
+
+    #city-selection {
+        border: 0;
+        margin-left: 10px;
+        width: 30%;
+        height: 24px;
+        font-size: 16px;
+        color: #0100d3;
+        margin-bottom: 30px;
+    }
+
+        #city-selection:focus {
+            border: 1px solid #ccc;
+            outline: none !important;
+            -webkit-box-shadow: 1px 5px 10px 2px rgba(34, 60, 80, 0.2);
+            -moz-box-shadow: 1px 5px 10px 2px rgba(34, 60, 80, 0.2);
+            box-shadow: 1px 5px 10px 2px rgba(34, 60, 80, 0.2);
+        }
+
+    #shop-address-form {
+        display: flex;
+        margin-top: 10px;
+        margin-bottom: 40px;
+    }
+
+    #shop-address-select {
+        border: 0;
+        margin-left: 10px;
+        width: 30%;
+        height: 24px;
+        font-size: 16px;
+        color: #0100d3;
+        width: fit-content;
+    }
+
+        #shop-address-select:focus {
+            border: 1px solid #ccc;
+            outline: none !important;
+            -webkit-box-shadow: 1px 5px 10px 2px rgba(34, 60, 80, 0.2);
+            -moz-box-shadow: 1px 5px 10px 2px rgba(34, 60, 80, 0.2);
+            box-shadow: 1px 5px 10px 2px rgba(34, 60, 80, 0.2);
+        }
+
+    #express-delivery-banner {
+        background-color: #0100d3;
+        width: 30%;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-radius: 3px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .want-express-banner {
+        background-color: #0100d3;
+        width: 30%;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-radius: 3px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        font-weight: normal;
+    }
+
+        .want-express-banner:hover {
+            cursor: pointer;
+            background-color: #0000b3;
+        }
+
+    .want-express-icon-container {
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        background-color: #f15a2c;
+    }
+
+        .want-express-icon-container svg {
+            margin-top: 7px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 30px;
+            display: block;
+        }
+
+    #want-express-span-1 {
+        color: white;
+        font-size: 14px;
+    }
+
+    #want-express-span-2 {
+        color: white;
+        font-size: 11px;
+    }
+
+    .rotate-45 {
+        -ms-transform: rotate(45deg); /* Internet Explorer 9 */
+        -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+        transform: rotate(45deg); /* Standard syntax */
+    }
+
+    #comments-textarea-wrapper {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    #comments-textarea {
+        border: 1px solid #ccc;
+        width: 97%;
+        height: 100px;
+        border-radius: 3px;
+        font-size: 13px;
+    }
+
+        #comments-textarea:focus {
+            border: 1px solid #ccc;
+            outline: none !important;
+            -webkit-box-shadow: 1px 5px 10px 2px rgba(34, 60, 80, 0.2);
+            -moz-box-shadow: 1px 5px 10px 2px rgba(34, 60, 80, 0.2);
+            box-shadow: 1px 5px 10px 2px rgba(34, 60, 80, 0.2);
+        }
+
+    #delivery-method-container {
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+    .delivery-method-banner {
+        width: 34%;
+        border: 1px solid #ccc;
+        margin-right: 10px;
+        display: flex;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    #deliver-to-shop-span-1 {
+        color: #0100d3;
+        font-size: 13px;
+    }
+
+    #deliver-to-shop-span-2 {
+        color: #4d4d4d;
+        font-size: 10px;
+    }
+
+    #deliver-to-home-span-1 {
+        color: #0100d3;
+        font-size: 13px;
+    }
+
+    #deliver-to-home-span-2 {
+        color: #4d4d4d;
+        font-size: 10px;
+    }
+
+    #payment-method-wrapper {
+        display: flex;
+        margin-top: 10px;
+    }
+
+    .payment-method-span {
+        font-size: 14px;
+        color: #0100d3;
+    }
+
+    #pay-on-delivery {
+        background-color: white;
+        width: 38%;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-right: 20px;
+        padding-left: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        cursor: pointer;
+        font-weight: normal;
+        font-size: 14px;
+    }
+
+    #pay-online {
+        background-color: white;
+        width: 38%;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding-left: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        cursor: pointer;
+        font-weight: normal;
+        font-size: 14px;
+    }
+
+    #payment-information-container {
+        width: 90%;
+        margin-top: 10px;
+        font-size: 14px;
+        padding-top: 5px;
+    }
+
+    #payment-summary-container {
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        padding-top: 20px;
+        padding-left: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        width: 96%;
+        margin-top: 20px;
+    }
+
+    .payment-summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .payment-summary-item {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+        .payment-summary-item span {
+            padding-bottom: 5px;
+        }
+
+        .payment-summary-item img {
+            padding-top: 5px;
+        }
+
+    .color-green {
+        color: #3ec823;
+    }
+
+    #order-form-submit-btn {
+        border: 0;
+        background-color: #3ec823;
+        width: 96%;
+        margin-top: 30px;
+        padding: 15px;
+        color: white;
+        font-size: 16px;
+        border-radius: 3px;
+    }
+
+        #order-form-submit-btn:hover {
+            background-color: #36ad1f;
+            cursor: pointer;
+        }
+</style>
+
+<!-- Review component styles -->
+<style>
+    .adv-disadv {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .review-list-empty {
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        font-weight: 600;
+    }
+
+    .review-container {
+        font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+        color: #4d4d4d;
+        margin-bottom: 20px;
+        margin-top: 30px;
+    }
+
+    .review-header {
+        display: flex;
+        padding-left: 10px;
+        padding-right: 50px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        margin-left: 20px;
+    }
+
+    #review-text-container {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    #review-counter {
+        font-size: 9px;
+        color: #0100d3;
+        margin-left: 5px;
+    }
+
+    .review-body {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 20px;
+    }
+
+    .review-list {
+        width: 45%;
+    }
+
+    .leave-review {
+        width: 55%;
+    }
+
+    .review-list-item {
+        height: fit-content;
+        padding-top: 30px;
+        margin-bottom: 10px;
+    }
+
+    .reviewer-name {
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .review-list-item-date {
+        margin-left: 60%;
+        color: #9ba2ac;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .review-list-item-text {
+        margin-top: 10px;
+        color: #9ba2ac;
+        font-size: 16px;
+        padding-left: 5px;
+    }
+
+    .review-list-item-text-header {
+        color: #9ba2ac;
+    }
+
+    .review-list-item-text-body {
+        margin-top: 8px;
+        font-size: 13px;
+        color: #4d4d4d;
+        height: fit-content;
+        background-color: #f5f5f7;
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+        border-radius: 5px;
+    }
+
+
+    #leave-review-btn {
+        max-width: 225px;
+        height: 42px;
+        background-color: #0100d3;
+        font-size: 18px;
+        color: white;
+        display: flex;
+        align-items: center;
+        margin-top: 30px;
+        margin-left: 80px;
+        border-radius: 5px;
+    }
+
+        #leave-review-btn:hover {
+            background-color: #0000b3;
+            cursor: pointer;
+        }
+
+    #leave-review-btn-text {
+        margin-left: 17%;
+        font-weight: 600;
+    }
+
+    .product-review-stars {
+        display: flex;
+        max-width: 250px;
+        margin-left: 80px;
+        margin-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .product-review-stars-container {
+        width: fit-content
+    }
+
+    .product-review-stars svg {
+        color: orange;
+    }
+
+    .product-average-rating {
+        font-size: 25px;
+        color: #9ba2ac;
+        margin-left: 10px;
+    }
+
+    .leave-review-form {
+        width: 350px;
+        height: 500px;
+        margin-left: 20px;
+    }
+
+    .review-form-header {
+        font-size: 20px;
+        color: #0100d3;
+        display: flex;
+        align-items: center;
+        padding-bottom: 23px;
+        border-bottom: 1px solid #a6a6a6;
+    }
+
+        .review-form-header span {
+            width: 100%;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .review-form-header svg {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+    .rate-the-product {
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-left: 20px;
+    }
+
+        .rate-the-product svg {
+            color: #a6a6a6;
+        }
+
+    .product-rating-group {
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+
+        .product-rating-group span {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .product-rating-group textarea {
+            width: 270px;
+            height: 63px;
+            padding: 10px;
+            margin-top: 5px;
+            background-color: #f5f5f7;
+            border: 0;
+            border-radius: 5px;
+        }
+
+            .product-rating-group textarea::placeholder {
+                font-size: 14px;
+                color: #4d4d4d;
+                font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+            }
+</style>
+
+<style>
+    .linear-gradient-opacity {
+        -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+    }
+
+    .book-characteristics-body-right li {
+        list-style-type: none;
+        font-size: 13px;
+        font-weight: 600;
+        color: #4d4d4d;
+    }
+
+        .book-characteristics-body-right li a {
+            list-style-type: none;
+            font-size: 13px;
+            font-weight: bold;
+            color: #0100d3;
+        }
+
+    .book-characteristics-body-left li {
+        list-style-type: none;
+        font-size: 13px;
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .book-characteristics-body-right {
+        width: 77%;
+    }
+
+    .book-characteristics-body-left {
+        width: 22%;
+        margin-left: 10px;
+    }
+
+    .book-characteristics-body {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .book-description-wrapper {
+        width: 48%;
+    }
+
+    .book-characteristics-wrapper {
+        width: 52%;
+    }
+
+    .book-full-info-container-bottom-right {
+        width: 100%;
+        cursor: pointer;
+        background-image: linear-gradient( 0deg, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    .book-full-info-container-bottom-left {
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .book-full-info-container-bottom {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .book-description-toggle-button-wrapper {
+        margin-left: 10px;
+    }
+
+    #book-characteristics-toggle-button {
+        color: #0100d3;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    #book-description-toggle-button {
+        color: #0100d3;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .book-description-header {
+        font-size: 18px;
+        margin-left: 10px;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .book-description-body {
+        line-height: 1.6;
+        font-size: 15px;
+        margin-left: 10px;
+    }
+
+    .book-full-info-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        width: 100%;
+        color: #4d4d4d;
+        font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+    }
+
+    .book-description-footer {
+        line-height: 1.6;
+        font-size: 15px;
+        margin-left: 10px;
+    }
+
+    .book-description-container {
+        width: 100%;
+        height: 100px;
+        overflow-y: hidden;
+    }
+
+    .book-characteristics-container {
+        height: 100px;
+        width: 100%;
+        overflow-y: hidden;
+    }
+</style>
+
+<style>
+    /*this genre books swiper style*/
+    HTML CSS JSResult Skip Results Iframe
+    EDIT ON
+    html,
+    body {
+        position: relative;
+        height: 100%;
+        font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+        color: #4d4d4d;
+        overflow-x: hidden;
+    }
+
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-slide {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .background-white {
+        background-color: white;
+    }
+
+    .item-block-wrapper {
+        height: 370px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        width: 90%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .item-block {
+        width: 24%;
+    }
+
+    .book-container {
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px;
+        margin-top: 7px;
+        height: 95%;
+        padding-left: 10px;
+        padding-right: 15px;
+    }
+
+        .book-container:hover {
+            box-shadow: 0px -1px 8px 1px rgba(34, 60, 80, 0.2);
+            border-radius: 5px;
+        }
+
+    .img-wrapper {
+        height: 200px;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 5px;
+        z-index: -1;
+    }
+
+        .img-wrapper img {
+            height: 200px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            /*width:130px;*/
+        }
+
+    .book-name-wrapper {
+        width: 100%;
+        margin-top: 20px;
+        min-height: 40px;
+        font-size: 14px;
+        font-weight: normal;
+        overflow: hidden;
+        height: 37px;
+    }
+
+        .book-name-wrapper:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+    .discount-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        height: 32px;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+    }
+
+    .discount-block {
+        width: 41.25px;
+        height: 25px;
+        color: white;
+        padding-left: 3px;
+        padding-top: 0px;
+        padding-bottom: 5px;
+        font-size: 16px;
+        margin-top: 7px;
+    }
+
+    .book-location {
+        font-size: 13px;
+        padding-top: 12px;
+    }
+
+    .bottom-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .price-wrapper {
+        max-height: 40px;
+        width: 70px;
+    }
+
+    .item-block-old-price {
+        font-size: 15px;
+        color: #727272;
+        text-decoration-line: line-through;
+        text-decoration-thickness: 1px;
+        text-decoration-color: #f15a2c;
+        height: 16px;
+    }
+
+    .item-block-price {
+        font-size: 17px;
+        margin-top: 0px;
+        padding-top: 0px;
+        height: 35px;
+        margin-top: 3px;
+    }
+
+    .tocart-icon {
+        background-color: #f15a2c;
+        width: 76px;
+        height: 40px;
+        border-radius: 5px;
+        margin-top: 0px;
+    }
+
+        .tocart-icon svg {
+            padding-left: 22px;
+            padding-top: 5px;
+            padding-bottom: 12px;
+            width: 50px;
+            height: 50px;
+        }
+
+    .add-towishlist-and-search-btn {
+        width: 75px;
+        display: flex;
+        justify-content: space-between;
+        margin-left: 100px;
+        margin-top: -50px;
+    }
+
+    .this-genre-swiper-add-to-wishlist {
+        background-color: #0100d3;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+    }
+
+        .this-genre-swiper-add-to-wishlist svg {
+            padding-left: 9px;
+            padding-top: 9px;
+            width: 25px;
+            height: 25px;
+        }
+
+    .this-genre-swiper-details-modal {
+        background-color: #0100d3;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+    }
+
+        .this-genre-swiper-details-modal svg {
+            padding-left: 9px;
+            padding-top: 9px;
+            width: 25px;
+            height: 25px;
+        }
+
+    .this-genre-books-header {
+        font-size: 24px;
+        margin-left: 15px;
+        font-weight: bold;
+    }
+
+    .this-genre-books-wrapper {
+        margin-top: 35px;
+    }
+
+    @@media only screen and (min-width:100px) and (max-width:500px) {
+        img {
+            width: 200px;
+            height: 200px;
+        }
+    }
+</style>
+
+<style>
+    #author-name {
+        color: #0100d3;
+        font-size: 15px;
+        text-decoration: underline;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+    #author-img {
+        width: 92px;
+        height: 92px;
+        border-radius: 50%;
+    }
+
+    .author-wrapper {
+        margin-top: 30px;
+    }
+
+    .additional-info-member {
+        margin-bottom: 10px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+        .additional-info-member svg {
+            margin-right: 5px;
+        }
+
+    .additional-info {
+        margin-top: 15px;
+    }
+
+    #in-stock-almaty {
+        color: #4d4d4d;
+        text-decoration-color: #4d4d4d;
+        font-size: 13px;
+        font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+        font-weight: bold;
+    }
+
+    #delivery-conditions {
+        color: #4d4d4d;
+        text-decoration-color: #4d4d4d;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .in-stock-links {
+        margin-top: 20px;
+    }
+
+    #add-btn {
+        width: 300px;
+        height: 40px;
+        color: white;
+        background-color: #F15A2C;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 0;
+        font-weight: bold;
+    }
+
+        #add-btn:hover {
+            background-color: #d83d0e;
+        }
+
+    #buy-btn {
+        width: 300px;
+        height: 40px;
+        color: #a6a6a6;
+        border: 1px solid #a6a6a6;
+        background-color: white;
+        border-radius: 5px;
+    }
+
+        #buy-btn:hover {
+            color: #666666;
+            border: 1px solid #666666;
+        }
+
+    .product-discount {
+        font-size: 13px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        width: 300px;
+        margin-top: 20px;
+    }
+
+    .going-to-save {
+        font-size: 13px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        width: 300px;
+        margin-top: 5px;
+    }
+
+    #old-price {
+        font-size: 18px;
+        position: absolute;
+        margin-left: 15px;
+        margin-top: 10px;
+        text-decoration-line: line-through;
+        text-decoration-color: #ff6600;
+        text-decoration-thickness: 1px;
+    }
+
+    .add-to-shoppinglist {
+        margin-top: 10px;
+    }
+
+    .this-book-price-wrapper {
+        font-size: 35px;
+    }
+
+    #express-delivery {
+        margin-left: 15%;
+        margin-top: 2px;
+    }
+
+    #main-img {
+        margin-left: 6%;
+        height: 518px;
+        z-index: -1;
+    }
+
+    .big-img-wrapper {
+        display: flex;
+        width: 100%;
+        padding: 0px;
+    }
+
+    .big-img {
+        width: 75%;
+    }
+
+    .delivery-icon {
+        width: 25%;
+    }
+
+    #side-img-1 {
+        height: 70px;
+        margin-left: 10px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #side-img-2 {
+        height: 70px;
+        margin-left: 10px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .border-visible {
+        border-radius: 5px;
+        border: 2px solid #0100d3;
+    }
+
+    .img-container {
+        height: 75px;
+        width: 75px;
+        margin-left: -12px;
+        margin-top: 1px;
+        margin-bottom: 10px;
+    }
+
+    .img-container2 {
+        height: 75px;
+        width: 75px;
+        margin-left: -12px;
+        margin-top: 1px;
+        margin-bottom: 10px;
+    }
+
+    .left-photo-gallery-wrapper {
+        max-width: 80px;
+        height: 518px;
+    }
+
+    .details-main {
+        margin-top: 30px;
+        margin-left: 20px;
+        margin-right: 20px;
+        height: 520px;
+    }
+
+    .big-img-wrapper {
+        max-width: 43%;
+    }
+
+    .book-info-wrapper {
+        font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+        color: #4d4d4d;
+    }
+
+    .details-container {
+        width: 100%;
+    }
+
+    .details-header {
+        height: 82px;
+    }
+
+    .breadcrumb-item {
+        display: flex;
+        padding-left: 5px;
+        height: 11px;
+    }
+
+        .breadcrumb-item a {
+            color: #333;
+            display: inline-block;
+            padding: 2px 0 0 5px;
+            text-decoration: none;
+            font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+            font-size: 12px;
+        }
+
+    .arrow {
+        font-size: 13px;
+        font-weight: 500;
+        color: #333;
+        margin-left: 5px;
+        margin-top: 1.5px;
+    }
+
+    .route-wrapper {
+        padding-left: 15px;
+    }
+
+    .details-header {
+        margin-top: 10px;
+    }
+
+    .book-name {
+        height: 28px;
+        font-size: 23px;
+        font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+        color: #4d4d4d;
+        font-weight: bold;
+        margin-left: 15px;
+        padding-left: 6px;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .header-icons {
+        margin-left: 20px;
+        padding-top: 5px;
+    }
+
+    .row-header-icons {
+        margin-left: 0px;
+    }
+
+    .col-header {
+        font-size: 14px;
+        padding-left: 2px;
+        color: #4d4d4d;
+        font-family: 'Proxima','Helvetica Neue',Helvetica,Arial,sans-serif;
+    }
+
+        .col-header a {
+            color: #4d4d4d;
+            text-decoration-color: #4d4d4d;
+        }
+
+    .review-progressbar svg {
+        color: orange;
+        height: 14px;
+    }
+
+    .to-wishlist svg {
+        margin-right: 5px;
+    }
+</style>
