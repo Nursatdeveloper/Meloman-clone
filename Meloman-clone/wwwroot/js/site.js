@@ -6,6 +6,3 @@
 function openSideBar(x) {
     x.classList.toggle("change");
 }
-$(function () {
-
-});
