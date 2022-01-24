@@ -111,6 +111,10 @@
     font-weight: normal;
     overflow: hidden;
 }
+.book-name-wrapper:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 .discount-wrapper {
     width: 100%;

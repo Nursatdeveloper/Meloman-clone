@@ -4,6 +4,7 @@
     $("#home-address-form").hide();
     $("#shop-address-form").hide();
     $("#show-order-form-btn").hide();
+    console.log("hide");
 });
 function openSideBar(x) {
     x.classList.toggle("change");
@@ -74,7 +75,7 @@ $("#get-my-basket-items").click(function () {
     if (bookIds == null || bookIds[0] == null) {
         return showMessage('Корзина пустая!')
     }
-
+    
     for (var i = 0; i < bookIds.length; i++) {
         $.ajax({
             type: "POST",
@@ -83,11 +84,11 @@ $("#get-my-basket-items").click(function () {
             cache: false,
             success: function (data) {
                 addBooksToBasketItems(data.BookId, data.Name, data.Author, data.Price, data.PhotoFront);
-
             }
         })
     }
     if (bookIds.length != 0) {
+        console.log("show")
         $("#show-order-form-btn").show()
         $.ajax({
             url: "/Books/GetFinalPrice",
@@ -221,14 +222,16 @@ function processOrder() {
     })
 }
 function showOrderForm() {
+    console.log("i am showorderform")
     $(".order-form-wrapper").show();
 }
 function showBasketItemsTable() {
-    $(".profile-main-menu-body").empty();
+    //$(".profile-main-menu-body").empty();
+    $(".table").hide();
     $(".profile-main-menu-body").prepend(`
             <div class="basket-list-container">
             </div>
-
+            <button id="show-order-form-btn" onclick="showOrderForm()">Оформить заказ</button>
         `)
 }
 function addBooksToBasketItems(id, name, author, price, img) {
@@ -889,7 +892,9 @@ function changeDeliveryStatus(orderId) {
     })
 }
 function addOrderTable() {
-    $(".profile-main-menu-body").empty();
+    $(".basket-list-container").hide();
+    $(".order-form-wrapper").hide();
+    $("#show-order-form-btn").hide();
     $(".profile-main-menu-body").append(`
            <div class="table">
                 <div class="table-header">
