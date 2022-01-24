@@ -628,5 +628,20 @@ namespace Meloman_clone.Repository
             decimal[] data = { oldPrice, percent, price };
             return data;
         }
+
+        public bool DeleteAuthor(int id)
+        {
+            try
+            {
+                var author = _context.BookAuthors.Find(id);
+                _context.BookAuthors.Remove(author);
+                _context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

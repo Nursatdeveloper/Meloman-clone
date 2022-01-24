@@ -429,5 +429,15 @@ namespace Meloman_clone.Controllers
         {
             return new JsonResult(_bookRepository.GetFinalPrice(bookIds, operation));
         }
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = "MelomanAdminCookie")]
+        public string DeleteAuthor(int id)
+        {
+            if (_bookRepository.DeleteAuthor(id))
+            {
+                return "success";
+            }
+            return "fail";
+        }
     }
 }

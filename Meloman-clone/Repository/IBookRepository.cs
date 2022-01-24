@@ -33,5 +33,6 @@ namespace Meloman_clone.Repository
         List<Book> SortByDecreasingDiscount(List<Book> books);
         List<Book> GetBase64FrontImage(List<Book> books);
         decimal[] GetFinalPrice(int[] bookIds, string operation);
+        bool DeleteAuthor(int id);
     }
 }
