@@ -76,6 +76,9 @@ header {
 
 .header-wrapper {
 }
+.hidden{
+    display:none;
+}
 
 .top-header {
     display: flex;
@@ -93,10 +96,8 @@ header {
 }
 
 .top-header-right {
-    margin-left: 2%;
     display: flex;
     justify-content: space-between;
-    padding-top: 2px;
 }
 
 .top-header-left-links {

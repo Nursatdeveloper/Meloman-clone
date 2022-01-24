@@ -3,11 +3,32 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Meloman_clone</RootNamespace>
+    <UserSecretsId>ccafeab2-4bbf-4b8d-9f98-7bd12dd317d8</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\**" />
+    <Content Remove="Migrations\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Migrations\20220123160156_BookContext_Conf_Heroku_pg.cs" />
+    <Compile Include="Migrations\20220123160156_BookContext_Conf_Heroku_pg.Designer.cs" />
+    <Compile Include="Migrations\Application\20220124050846_ApplicationContext_Conf_Heroku_pg.cs" />
+    <Compile Include="Migrations\Application\20220124050846_ApplicationContext_Conf_Heroku_pg.Designer.cs" />
+    <Compile Include="Migrations\Application\ApplicationContextModelSnapshot.cs" />
+    <Compile Include="Migrations\BookContextModelSnapshot.cs" />
+    <Compile Include="Migrations\User\20220124051118_UserContext_Conf_Heroku_pg.cs" />
+    <Compile Include="Migrations\User\20220124051118_UserContext_Conf_Heroku_pg.Designer.cs" />
+    <Compile Include="Migrations\User\UserContextModelSnapshot.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
     <PackageReference Include="EPPlus" Version="5.8.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
@@ -16,6 +37,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
   </ItemGroup>
 

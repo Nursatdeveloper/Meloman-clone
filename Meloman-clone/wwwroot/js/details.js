@@ -40,7 +40,7 @@
                 data: { 'size': 8, 'genre': data.Genre },
                 cache: false,
                 success: function (book) {
-                    for (var i = 1; i < 9; i++) {
+                    for (var i = 1; i < book.length+1; i++) {
                         $(`#img-${i}`).attr("src", "data:image/jpg;base64," + book[i - 1].PhotoFront + "");
                         if (book[i - 1].Author != '') {
                             $(`#author-name-${i}`).text(book[i - 1].Author + ':');

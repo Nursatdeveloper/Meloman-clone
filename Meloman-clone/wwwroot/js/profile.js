@@ -72,7 +72,7 @@ $("#get-my-basket-items").click(function () {
     showBasketItemsTable();
     var bookIds = JSON.parse(sessionStorage.getItem('bookIds'));
     if (bookIds == null || bookIds[0] == null) {
-        showMessage('Корзина пустая!')
+        return showMessage('Корзина пустая!')
     }
 
     for (var i = 0; i < bookIds.length; i++) {
@@ -225,6 +225,7 @@ function showOrderForm() {
     $(".order-form-wrapper").show();
 }
 function showBasketItemsTable() {
+    $(".profile-main-menu-body").empty();
     $(".profile-main-menu-body").prepend(`
             <div class="basket-list-container">
             </div>

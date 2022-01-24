@@ -77,10 +77,10 @@ namespace Meloman_clone.Controllers
         [HttpPost]
         public async Task<JsonResult> Register(string name, string email, string password)
         {
-            if (email.Contains("admin") || email.Contains("Admin"))
+            /*if (email.Contains("admin") || email.Contains("Admin"))
             {
                 return new JsonResult("invalid login");
-            }
+            }*/
             var user = new User();
             user.Name = name;
             user.Email = email;
