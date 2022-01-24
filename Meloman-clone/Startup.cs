@@ -1,6 +1,5 @@
 using Meloman_clone.Data;
 using Meloman_clone.Repository;
-using Meloman_clone.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,7 +43,6 @@ namespace Meloman_clone
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
-            services.AddScoped<IService, Service>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

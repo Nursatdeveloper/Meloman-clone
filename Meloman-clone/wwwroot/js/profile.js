@@ -62,7 +62,7 @@ $("#get-all-books").click(function () {
             for (var i = 0; i < data.length; i++) {
                 addDataToBookTable(data[i].BookId, data[i].Name, data[i].Author, data[i].Category, data[i].Genre, data[i].PublishedYear, data[i].Price, data[i].Discount, data[i].Amount, data[i].Language)
             }
-            downloadToExcelBtn('Book');
+            downloadToExcelBtn('Books');
 
         }
     })
@@ -95,7 +95,6 @@ $("#get-my-basket-items").click(function () {
             data: { 'bookIds': bookIds, 'operation': 'plus' },
             cache: false,
             success: function (data) {
-                console.log(data);
                 $("#first-price").text(data[0]);
                 var discount = round(data[1], 2);
                 $("#payment-summary-discount").text(discount);
@@ -288,7 +287,6 @@ function deleteFromBasket(elem) {
             data: { 'bookIds': array, 'operation': 'plus' },
             cache: false,
             success: function (data) {
-                console.log(data);
                 $("#first-price").text(data[0]);
                 var discount = round(data[1], 2);
                 $("#payment-summary-discount").text(discount);
@@ -325,7 +323,6 @@ function quantityMinus(elem) {
             data: { 'bookIds': array, 'operation': 'minus' },
             cache: false,
             success: function (data) {
-                console.log(data);
                 $("#first-price").text(data[0]);
                 var discount = round(data[1], 2);
                 $("#payment-summary-discount").text(discount);
@@ -373,7 +370,6 @@ function quantityPlus(elem) {
         data: { 'bookIds': array, 'operation': 'plus' },
         cache: false,
         success: function (data) {
-            console.log(data);
             $("#first-price").text(data[0]);
             var discount = round(data[1], 2);
             $("#payment-summary-discount").text(discount);
@@ -582,30 +578,16 @@ function addDataToReviewTable(reviewId, productId, productType, user, advantage,
 
 function downloadToExcelBtn(item) {
     $(".profile-main-menu-body").append(`
-            <button id="download-excel-btn" value="${item}" onclick="downloadToExcel(this)">
+            <a id="download-excel-btn" href="/${item}/DownloadToExcel">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
                     <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
                     <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
                   </svg>
                   <span>Скачать в Excel</span>
-            </button>
+            </a>
         `)
 }
-function downloadToExcel(elem) {
-    $.ajax({
-        url: "/User/DownloadToExcel",
-        type: "POST",
-        data: { 'downloadItem': elem.value },
-        cache: false,
-        success: function (data) {
-            if (data == "success") {
-                showMessage('Excel файл был установлен на ваш рабочий стол!');
-            } else {
-                showMessage('Невозможно установить Excel файл! Если открыт предыдущий excel файл, закройте файл и попробуйте заново!');
-            }
-        }
-    })
-}
+
 function wantExpressClick() {
     if ($("#want-express-hidden-input").val() == 'want') {
         $("#want-express-hidden-input").val('dont-want')

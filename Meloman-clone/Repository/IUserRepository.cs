@@ -14,6 +14,7 @@ namespace Meloman_clone.Repository
         bool RegisterUser(User user);
         List<Claim> GetClaims(User user, string role);
         List<Claim> GetAdminClaims();
+        List<User> GetUsers();
 
     }
 }

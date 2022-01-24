@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
@@ -65,6 +67,24 @@ namespace Meloman_clone.Controllers
             }
             
 
+        }
+        public IActionResult DownloadToExcel()
+        {
+            var list = _reviewRepository.GetReviews(0, "All");
+            var stream = new MemoryStream();
+            //required using OfficeOpenXml;
+            // If you use EPPlus in a noncommercial context
+            // according to the Polyform Noncommercial license:
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (var package = new ExcelPackage(stream))
+            {
+                var workSheet = package.Workbook.Worksheets.Add("Отзывы");
+                workSheet.Cells.LoadFromCollection(list, true);
+                package.Save();
+            }
+            stream.Position = 0;
+            string excelName = $"Отзывы-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+            return File(stream, "application/octet-stream", excelName);
         }
     }
 }

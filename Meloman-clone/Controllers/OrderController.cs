@@ -2,9 +2,11 @@
 using Meloman_clone.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -94,6 +96,24 @@ namespace Meloman_clone.Controllers
                 return new JsonResult("Изменение прошло успешно!");
             }
             return new JsonResult("Изменение не удалось!");
+        }
+        public IActionResult DownloadToExcel()
+        {
+            var list = _orderRepository.GetOrderList("admin", null);
+            var stream = new MemoryStream();
+            //required using OfficeOpenXml;
+            // If you use EPPlus in a noncommercial context
+            // according to the Polyform Noncommercial license:
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (var package = new ExcelPackage(stream))
+            {
+                var workSheet = package.Workbook.Worksheets.Add("Заказы");
+                workSheet.Cells.LoadFromCollection(list, true);
+                package.Save();
+            }
+            stream.Position = 0;
+            string excelName = $"Заказы-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+            return File(stream, "application/octet-stream", excelName);
         }
 
     }

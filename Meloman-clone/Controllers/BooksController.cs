@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.IO;
 using Meloman_clone.Repository;
 using Microsoft.AspNetCore.Authorization;
+using OfficeOpenXml;
 
 namespace Meloman_clone.Controllers
 {
@@ -438,6 +439,24 @@ namespace Meloman_clone.Controllers
                 return "success";
             }
             return "fail";
+        }
+        public IActionResult DownloadToExcel()
+        {
+            var list = _context.Books.ToList();
+            var stream = new MemoryStream();
+            //required using OfficeOpenXml;
+            // If you use EPPlus in a noncommercial context
+            // according to the Polyform Noncommercial license:
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (var package = new ExcelPackage(stream))
+            {
+                var workSheet = package.Workbook.Worksheets.Add("Книги");
+                workSheet.Cells.LoadFromCollection(list, true);
+                package.Save();
+            }
+            stream.Position = 0;
+            string excelName = $"Книги-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+            return File(stream, "application/octet-stream", excelName);
         }
     }
 }

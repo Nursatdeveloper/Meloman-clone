@@ -18,7 +18,10 @@ namespace Meloman_clone.Repository
         {
             _context = context;
         }
-
+        public List<User> GetUsers()
+        {
+            return _context.Users.ToList();
+        }
 
         public User FindByEmail(string email)
         {

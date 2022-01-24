@@ -1,14 +1,15 @@
 ﻿using Meloman_clone.Dtos;
 using Meloman_clone.Models;
 using Meloman_clone.Repository;
-using Meloman_clone.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
@@ -19,12 +20,10 @@ namespace Meloman_clone.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
-        private readonly IService _services;
 
-        public UserController(IUserRepository userRepository, IService services)
+        public UserController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _services = services;
         }
         public IActionResult Index()
         {
@@ -135,14 +134,6 @@ namespace Meloman_clone.Controllers
             await HttpContext.SignInAsync("MelomanAuthCookie", claimsPrincipal);
         }
 
-        [HttpPost]
-        public JsonResult DownloadToExcel(string downloadItem)
-        {
-            if(_services.DownloadExcel(downloadItem))
-            {
-                return new JsonResult("success");
-            }
-            return new JsonResult("fail");
-        }
+    
     }
 }
