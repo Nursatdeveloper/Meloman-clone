@@ -39,6 +39,7 @@ $(".header-offcanvas-section-items").mouseout(function () {
 });
 
 $("#get-all-reviews").click(function () {
+    $(".profile-main-menu-body").empty();
     $.ajax({
         url: "/Review/ReviewList",
         type: "POST",
@@ -995,6 +996,8 @@ $("#get-my-orders").click(function () {
     })
 })
 $("#get-all-orders").click(function () {
+    $(".profile-main-menu-body").empty();
+
     addOrderTable();
     $.ajax({
         url: "/Order/GetOrderList",
