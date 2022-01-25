@@ -13,7 +13,7 @@ Application has a number of functionalities:
 2) Sorting |
   Meloman-clone sorts books based on the price, category, genre, author, book cover, etc.
 3) Admin profile |
-  User who has admin credentials can access to admin portal, where user can execute CRUD operations and get list of books, reviews, and orders.
+  The user, who has admin credentials, can access to admin portal, where user can execute CRUD operations and get list of books, reviews, and orders.
 4) Export to Excel |
   Admin can export list of books, reviews and orders to excel file.
 5) Give review to particular book (requires authentication) |
