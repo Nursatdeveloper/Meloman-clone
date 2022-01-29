@@ -24,3 +24,5 @@ Application has a number of functionalities:
   Book photos are saved in binary format to database.
   
   Time to finish this application is 3 weeks.
+  
+9) Download book list in pdf format
