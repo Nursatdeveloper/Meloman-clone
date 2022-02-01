@@ -1,11 +1,16 @@
 ﻿using iText.IO.Font;
+using iText.IO.Font.Constants;
 using iText.Kernel.Colors;
 using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
+using iText.Layout.Borders;
 using iText.Layout.Element;
+using iText.Layout.Font;
 using iText.Layout.Properties;
 using Meloman_clone.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,6 +22,11 @@ namespace Meloman_clone.Services
 {
     public class PdfService : IPdfService
     {
+        private readonly IWebHostEnvironment _env;
+        public PdfService(IWebHostEnvironment env)
+        {
+            _env = env;
+        }
         public byte[] DownloadBookListToPdf(List<Book> books)
         {
             
@@ -27,10 +37,11 @@ namespace Meloman_clone.Services
             
             using (var doc = new Document(pdf))
             {
-
+                
                 Paragraph newline = new Paragraph(" ");
 
-                string FONT_FILENAME = @".\assets\fonts\Arial.ttf";
+                string FONT_FILENAME = Path.Combine(_env.ContentRootPath, "assets/fonts/arial.ttf");
+
                 PdfFont font = PdfFontFactory.CreateFont(FONT_FILENAME, PdfEncodings.IDENTITY_H);
                 doc.SetFont(font);
 
@@ -228,14 +239,186 @@ namespace Meloman_clone.Services
             }
             return overallPrice.ToString();
         }
-        private Cell GetCell(int cm)
+
+        public byte[] DownloadOrderDetailsToPdf(Order order, string name)
         {
-            Cell cell = new Cell(1, cm);
-            Paragraph p = new Paragraph(
-            String.Format("%s", 10 * cm)).SetFontSize(8);
-            p.SetTextAlignment(TextAlignment.CENTER);
-            cell.Add(p);
-            return cell;
+            byte[] pdfFileBytes;
+            using (var stream = new MemoryStream())
+            using (var wri = new PdfWriter(stream))
+            using (var pdf = new PdfDocument(wri))
+
+            using (var doc = new Document(pdf))
+            {
+                Paragraph newline = new Paragraph(" ");
+
+                string FONT_FILENAME = Path.Combine(_env.ContentRootPath, "assets/fonts/arial.ttf");
+
+                PdfFont font = PdfFontFactory.CreateFont(FONT_FILENAME, PdfEncodings.IDENTITY_H);
+                doc.SetFont(font);
+
+                var title = new Paragraph($"Чек для заказа №{order.OrderId}")
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetFontSize(15);
+                doc.Add(title);
+                doc.Add(newline);
+
+                var date = new Paragraph($"Дата: {DateTime.Now.ToLongDateString()}")
+                    .SetPaddingBottom(5)
+                    .SetFontSize(12);
+                doc.Add(date);
+
+                var customer = new Paragraph($"Заказчик: {name}")
+                    .SetPaddingBottom(5)
+                    .SetFontSize(12);
+                doc.Add(customer);
+
+                var telephone = new Paragraph($"Телефон: {order.Telephone}")
+                    .SetPaddingBottom(5)
+                    .SetFontSize(12);
+                doc.Add(telephone);
+
+                var email = new Paragraph($"Email: {order.Email}")
+                    .SetPaddingBottom(5)
+                    .SetFontSize(12);
+                doc.Add(email);
+
+                var city = new Paragraph($"Город: {order.City}")
+                    .SetPaddingBottom(5)
+                    .SetFontSize(12);
+                doc.Add(city);
+
+                if(order.IsExpressDelivery == "да")
+                {
+                    var delivery = new Paragraph($"Вид доставки: {order.DeliveryType} (express)")
+                        .SetPaddingBottom(5)
+                        .SetFontSize(12);
+                    doc.Add(delivery);
+                }
+                else
+                {
+                    var delivery = new Paragraph($"Вид доставки: {order.DeliveryType} (не express)")
+                        .SetPaddingBottom(5)
+                        .SetFontSize(12);
+                    doc.Add(delivery);
+                }
+
+                var address = new Paragraph($"Адрес: {order.Address}")
+                    .SetPaddingBottom(5)
+                    .SetFontSize(12);
+                doc.Add(address);
+
+                var payment = new Paragraph($"Оплата: {order.PaymentType}")
+                    .SetFontSize(12)
+                    .SetPaddingBottom(5);
+                
+                doc.Add(payment);
+
+                var comments = new Paragraph($"Комментарий к заказу: {order.Comments}")
+                    .SetFontSize(12)
+                    .SetPaddingBottom(5);
+                doc.Add(comments);
+
+                var orderTime = new Paragraph($"Время оформление заказа: {order.Date}")
+                    .SetFontSize(12)
+                    .SetPaddingBottom(5);
+                doc.Add(orderTime);
+
+                var deliveryStatus = new Paragraph($"Статус доставки: {order.DeliveryStatus}")
+                    .SetFontSize(12)
+                    .SetPaddingBottom(5);
+                doc.Add(deliveryStatus);
+
+                var productsTableHeader = new Table(1, true)
+                    .AddCell(new Cell().Add(new Paragraph("Товары")).SetTextAlignment(TextAlignment.CENTER))
+                    .SetBackgroundColor(ColorConstants.LIGHT_GRAY);
+                doc.Add(productsTableHeader);
+                var productsTableBody = new Table(2, true);
+                Cell productTypeCell = new Cell()
+                    .Add(new Paragraph("Категория товара"))
+                    .SetTextAlignment(TextAlignment.CENTER);
+                Cell productNameCell = new Cell()
+                    .Add(new Paragraph("Название"))
+                    .SetTextAlignment(TextAlignment.CENTER);
+                productsTableBody.AddCell(productTypeCell);
+                productsTableBody.AddCell(productNameCell);
+                var orderProducts = order.Products;
+                foreach(var orderProduct in orderProducts)
+                {
+                    Cell productType = new Cell()
+                        .Add(new Paragraph(orderProduct.ProductType))
+                        .SetTextAlignment(TextAlignment.CENTER);
+                    Cell productName = new Cell()
+                        .Add(new Paragraph(orderProduct.ProductName))
+                        .SetTextAlignment(TextAlignment.CENTER);
+                    productsTableBody.AddCell(productType);
+                    productsTableBody.AddCell(productName);
+                }
+                doc.Add(productsTableBody);
+                productsTableBody.Complete();
+                doc.Add(newline);
+                    
+
+                Table table = new Table(2, true);
+                table.SetBackgroundColor(ColorConstants.GRAY);
+                Cell initialPrice = new Cell()
+                    .Add(new Paragraph("Цена без учета скидки:"))
+                    .SetPadding(5)
+                    .SetPaddingLeft(10)
+                    .SetTextAlignment(TextAlignment.LEFT)
+                    .SetBorder(Border.NO_BORDER);
+                table.AddCell(initialPrice);
+
+                Cell initialPriceValue = new Cell()
+                    .SetPadding(5)
+                    .SetTextAlignment(TextAlignment.RIGHT)
+                    .SetBorder(Border.NO_BORDER);
+                if(order.InitialPrice == 0)
+                {
+                    initialPriceValue.Add(new Paragraph($"{order.FinalPrice} тг"));
+                }
+                else
+                {
+                    initialPriceValue.Add(new Paragraph($"{order.InitialPrice} тг"));
+                }
+                table.AddCell(initialPriceValue);
+
+                Cell discount = new Cell()
+                    .Add(new Paragraph("Скидка:"))
+                    .SetPadding(5)
+                    .SetPaddingLeft(10)
+                    .SetTextAlignment(TextAlignment.LEFT)
+                    .SetBorder(Border.NO_BORDER);
+                table.AddCell(discount);
+
+                Cell discountValue = new Cell()
+                    .Add(new Paragraph($"{order.Discount}%"))
+                    .SetPadding(5)
+                    .SetTextAlignment(TextAlignment.RIGHT)
+                    .SetBorder(Border.NO_BORDER);
+                table.AddCell(discountValue);
+
+                Cell finalPrice = new Cell()
+                    .Add(new Paragraph("Итоговая цена:"))
+                    .SetPadding(5)
+                    .SetPaddingLeft(10)
+                    .SetTextAlignment(TextAlignment.LEFT)
+                    .SetBorder(Border.NO_BORDER);
+                table.AddCell(finalPrice);
+
+                Cell finalPriceValue = new Cell()
+                    .Add(new Paragraph($"{order.FinalPrice} тг"))
+                    .SetPadding(5)
+                    .SetTextAlignment(TextAlignment.RIGHT)
+                    .SetBorder(Border.NO_BORDER);
+                table.AddCell(finalPriceValue);
+
+                doc.Add(table);
+
+
+                doc.Close();
+                pdfFileBytes = stream.ToArray();
+            }
+            return pdfFileBytes;
         }
     }
 }

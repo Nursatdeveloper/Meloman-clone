@@ -21,11 +21,13 @@ namespace Meloman_clone.Controllers
         private readonly IPdfService _service;
         private readonly IOrderRepository _orderRepository;
         private readonly IBookRepository _bookRepository;
-        public ServiceController(IPdfService service, IOrderRepository orderRepository, IBookRepository bookRepository)
+        private readonly IUserRepository _userRepository;
+        public ServiceController(IPdfService service, IOrderRepository orderRepository, IBookRepository bookRepository, IUserRepository userRepository)
         {
             _service = service;
             _orderRepository = orderRepository;
             _bookRepository = bookRepository;
+            _userRepository = userRepository;
         }
         [Authorize(AuthenticationSchemes = "MelomanAdminCookie")]
         public ActionResult DownloadBooksToPdf()
@@ -35,20 +37,15 @@ namespace Meloman_clone.Controllers
             string fileName = $"отчет_по_книгам_{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.pdf";
             return File(pdfFile, "application/pdf", fileName);
         }
-        //[Authorize(AuthenticationSchemes = "MelomanAuthCookie")]
-        public ActionResult Report()
+        [Authorize(AuthenticationSchemes = "MelomanAuthCookie")]
+        public ActionResult DownloadOrderToPdf(int id)
         {
-            byte[] pdfBytes;
-            using (var stream = new MemoryStream())
-            using (var wri = new PdfWriter(stream))
-            using (var pdf = new PdfDocument(wri))
-            using (var doc = new Document(pdf))
-            {
-                doc.Add(new Paragraph("Hello World!"));
-                doc.Close();
-                pdfBytes = stream.ToArray();
-            }
-            return File(pdfBytes, "application/pdf", "file.pdf");
+            var order = _orderRepository.GetOrderById(id);
+            string userName = _userRepository.FindById(Int32.Parse(order.UserId)).Name;
+            byte[] orderPdfFile = _service.DownloadOrderDetailsToPdf(order, userName);
+            string fileName = $"чек_заказа_№{id}.pdf";
+            return File(orderPdfFile, "application/pdf", fileName);
         }
+
     }
 }

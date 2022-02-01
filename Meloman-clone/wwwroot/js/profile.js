@@ -988,6 +988,7 @@ function addDataToOrderTable(id, person, city, deliveryType, address, isExpress,
                         <div id="option-list-${id}" class="options-list options-hide">
                             <li class="add-descrip-btn"><a class="options-list-link" data-bs-toggle="modal" data-bs-target="#productsModal" onclick="showOrderDetails(${id})">Детали заказа</a></li>
                             <li class="add-descrip-btn"><a class="options-list-link" data-bs-toggle="modal" data-bs-target="#productsModal" onclick="showProductsModal(${id})">Посмотреть товары</a></li>
+                            <li class="add-descrip-btn"><a class="options-list-link" href="/Service/DownloadOrderToPdf/${id}">Скачать чек</a></li>
                         </div>
                     </div>
                 </div>

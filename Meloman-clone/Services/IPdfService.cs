@@ -9,5 +9,6 @@ namespace Meloman_clone.Services
     public interface IPdfService
     {
         byte[] DownloadBookListToPdf(List<Book> books);
+        byte[] DownloadOrderDetailsToPdf(Order order, string name);
     }
 }

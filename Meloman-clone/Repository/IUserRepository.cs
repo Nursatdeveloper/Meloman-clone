@@ -11,6 +11,7 @@ namespace Meloman_clone.Repository
     public interface IUserRepository
     {
         User FindByEmail(string email);
+        User FindById(int id);
         bool RegisterUser(User user);
         List<Claim> GetClaims(User user, string role);
         List<Claim> GetAdminClaims();

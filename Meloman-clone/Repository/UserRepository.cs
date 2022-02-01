@@ -32,6 +32,11 @@ namespace Meloman_clone.Repository
             }
             return user;
         }
+        public User FindById(int id)
+        {
+            var user = _context.Users.FirstOrDefault(e => e.UserId == id);
+            return user;
+        }
 
         public List<Claim> GetAdminClaims()
         {
