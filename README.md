@@ -19,7 +19,7 @@ Application has a number of functionalities:
 5) Give review to particular book (requires authentication) |
 6) Add to basket of orders |
 7) Make an order (requires authentication) |
-  This functionality is implemented in /Books/Details/{id} page and User/Profile. The only difference is than in Details page the User can make order for only that particular book, whereas in Profile page the User can increase/decrease amount of books and make order for different type of books.
+  This functionality is implemented in /Books/Details/{id} page and User/Profile. The only difference is that in Details page the User can make order for only that particular book, whereas in Profile page the User can increase/decrease amount of books and make order for different type of books.
 8) Saving Book photos in binary |
   Book photos are saved in binary format to database. 
 9) "Download in PDF" service for users
